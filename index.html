@@ -52,25 +52,45 @@
         }
 
         /* --- 📱 RESPONSIVE MASTER: SEMUA DEVICE (320px - 1440px+) --- */
-        *, *::before, *::after {
+        *,
+        *::before,
+        *::after {
             box-sizing: border-box;
         }
-        main, section {
+
+        main,
+        section {
             overflow-x: hidden;
             width: 100%;
         }
+
         img {
             max-width: 100%;
             height: auto;
         }
+
         /* Teks panjang tidak overflow */
-        .hero-section h1, .hero-section p, .section-title, .section-subtitle,
-        h1, h2, h3, h4, h5, h6, p, li, span, a {
+        .hero-section h1,
+        .hero-section p,
+        .section-title,
+        .section-subtitle,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        p,
+        li,
+        span,
+        a {
             word-wrap: break-word;
             overflow-wrap: break-word;
         }
+
         /* Video / iframe responsive */
-        iframe, video {
+        iframe,
+        video {
             max-width: 100%;
             height: auto;
         }
@@ -80,73 +100,238 @@
            HP kecil seperti Galaxy S8, iPhone SE
            ======================================== */
         @media (max-width: 360px) {
-            .container { padding-left: 0.75rem; padding-right: 0.75rem; }
-            
+            .container {
+                padding-left: 0.75rem;
+                padding-right: 0.75rem;
+            }
+
             /* Header */
-            #header nav { padding: 0.5rem 0.5rem; }
-            #header .logo-wrap img { max-height: 28px !important; width: auto; }
-            #header .logo-wrap .wave-text { font-size: 0.95rem !important; }
+            #header nav {
+                padding: 0.5rem 0.5rem;
+            }
+
+            #header .logo-wrap img {
+                max-height: 28px !important;
+                width: auto;
+            }
+
+            #header .logo-wrap .wave-text {
+                font-size: 0.95rem !important;
+            }
+
             #header .logo-wrap .h-5,
             #header .logo-wrap .h-8,
-            #header .logo-wrap div[class*="h-"] { height: 1rem; }
-            
+            #header .logo-wrap div[class*="h-"] {
+                height: 1rem;
+            }
+
             /* Hero */
-            .hero-section { min-height: 90vh; padding-top: 2rem; padding-bottom: 2rem; }
-            .hero-section h1 { font-size: 1.25rem !important; line-height: 1.3; padding: 0 0.25rem; }
-            .hero-section p { font-size: 0.85rem !important; padding: 0 0.25rem; line-height: 1.6; }
-            .hero-section .floating-btn { font-size: 0.8rem; padding: 0.6rem 1.25rem; }
-            
+            .hero-section {
+                min-height: 90vh;
+                padding-top: 2rem;
+                padding-bottom: 2rem;
+            }
+
+            .hero-section h1 {
+                font-size: 1.25rem !important;
+                line-height: 1.3;
+                padding: 0 0.25rem;
+            }
+
+            .hero-section p {
+                font-size: 0.85rem !important;
+                padding: 0 0.25rem;
+                line-height: 1.6;
+            }
+
+            .hero-section .floating-btn {
+                font-size: 0.8rem;
+                padding: 0.6rem 1.25rem;
+            }
+
             /* Section Titles */
-            .section-title { font-size: 1.15rem !important; line-height: 1.35; padding: 0; }
-            .section-title:after { width: 60px; }
-            .section-subtitle { font-size: 0.8rem !important; margin-bottom: 1.5rem; padding: 0; line-height: 1.6; }
-            
-            /* Computer Animation */
-            .computer-animation { max-width: 260px; margin-top: 20px; }
-            .laptop { max-width: 200px !important; }
-            .motherboard { width: 70px !important; height: 90px !important; }
-            .screen-content { font-size: 0.5rem !important; padding: 8px 10px !important; line-height: 1.5 !important; }
-            
+            .section-title {
+                font-size: 1.15rem !important;
+                line-height: 1.35;
+                padding: 0;
+            }
+
+            .section-title:after {
+                width: 60px;
+            }
+
+            .section-subtitle {
+                font-size: 0.8rem !important;
+                margin-bottom: 1.5rem;
+                padding: 0;
+                line-height: 1.6;
+            }
+
+            /* Computer Animation - side by side, motherboard kiri */
+            .computer-animation {
+                max-width: 280px;
+                margin-top: 15px;
+            }
+
+            .computer-animation .flex {
+                flex-direction: row !important;
+                align-items: center !important;
+                gap: 8px !important;
+            }
+
+            .laptop {
+                max-width: 150px !important;
+                margin-right: 0 !important;
+            }
+
+            .motherboard {
+                width: 55px !important;
+                height: 70px !important;
+                margin-top: 0 !important;
+                flex-shrink: 0;
+            }
+
+            .screen-content {
+                font-size: 0.4rem !important;
+                padding: 6px 8px !important;
+                line-height: 1.4 !important;
+            }
+
             /* Cards */
-            .card { border-radius: 12px; }
-            .card p, .card li, .card span { font-size: 0.85rem; }
-            .contact-card-inner { padding: 1rem !important; }
-            .max-w-5xl, .max-w-4xl, .max-w-6xl { padding-left: 0; padding-right: 0; }
-            
+            .card {
+                border-radius: 12px;
+            }
+
+            .card p,
+            .card li,
+            .card span {
+                font-size: 0.85rem;
+            }
+
+            .contact-card-inner {
+                padding: 1rem !important;
+            }
+
+            .max-w-5xl,
+            .max-w-4xl,
+            .max-w-6xl {
+                padding-left: 0;
+                padding-right: 0;
+            }
+
             /* Guru */
-            .guru-grid-modern { gap: 16px; }
-            .guru-photo-modern-wrapper { width: 100px; height: 100px; }
-            .guru-name-modern { font-size: 1rem; }
-            .guru-title-modern { font-size: 0.8rem; }
-            .guru-tag { font-size: 0.65rem; padding: 3px 8px; }
-            
+            .guru-grid-modern {
+                gap: 16px;
+            }
+
+            .guru-photo-modern-wrapper {
+                width: 100px;
+                height: 100px;
+            }
+
+            .guru-name-modern {
+                font-size: 1rem;
+            }
+
+            .guru-title-modern {
+                font-size: 0.8rem;
+            }
+
+            .guru-tag {
+                font-size: 0.65rem;
+                padding: 3px 8px;
+            }
+
             /* Testimony */
-            .character-card .w-48 { width: 8rem; }
-            .character-card img { max-width: 120px; }
-            .speech-bubble { padding: 12px; }
-            .speech-bubble p { font-size: 0.85rem; }
-            
+            .character-card .w-48 {
+                width: 8rem;
+            }
+
+            .character-card img {
+                max-width: 120px;
+            }
+
+            .speech-bubble {
+                padding: 12px;
+            }
+
+            .speech-bubble p {
+                font-size: 0.85rem;
+            }
+
             /* Admin Contact */
-            .admin-avatar-container { width: 80px; height: 80px; }
-            .admin-character { width: 80px !important; height: 110px !important; }
-            .admin-head { width: 42px; height: 42px; }
-            .admin-body { width: 38px; height: 46px; }
-            .admin-arm { width: 11px; height: 42px; }
-            .admin-hair { width: 48px; height: 20px; }
-            
+            .admin-avatar-container {
+                width: 80px;
+                height: 80px;
+            }
+
+            .admin-character {
+                width: 80px !important;
+                height: 110px !important;
+            }
+
+            .admin-head {
+                width: 42px;
+                height: 42px;
+            }
+
+            .admin-body {
+                width: 38px;
+                height: 46px;
+            }
+
+            .admin-arm {
+                width: 11px;
+                height: 42px;
+            }
+
+            .admin-hair {
+                width: 48px;
+                height: 20px;
+            }
+
             /* Footer */
-            footer { padding-top: 2rem; padding-bottom: 2rem; }
-            footer .grid { gap: 1.5rem; }
-            footer p, footer a, footer span { font-size: 0.8rem; }
-            
+            footer {
+                padding-top: 2rem;
+                padding-bottom: 2rem;
+            }
+
+            footer .grid {
+                gap: 1.5rem;
+            }
+
+            footer p,
+            footer a,
+            footer span {
+                font-size: 0.8rem;
+            }
+
             /* Form */
-            .form-control { padding: 0.75rem; font-size: 0.9rem; }
-            .form-label { font-size: 0.85rem; top: 0.75rem; }
-            .btn-submit { padding: 0.75rem 1.25rem; font-size: 0.95rem; }
-            
+            .form-control {
+                padding: 0.75rem;
+                font-size: 0.9rem;
+            }
+
+            .form-label {
+                font-size: 0.85rem;
+                top: 0.75rem;
+            }
+
+            .btn-submit {
+                padding: 0.75rem 1.25rem;
+                font-size: 0.95rem;
+            }
+
             /* AI Section */
-            .robot-container { height: 180px; }
-            .robot { width: 70px; height: 130px; transform: scale(0.75); }
+            .robot-container {
+                height: 180px;
+            }
+
+            .robot {
+                width: 70px;
+                height: 130px;
+                transform: scale(0.75);
+            }
         }
 
         /* ========================================
@@ -154,58 +339,159 @@
            HP standar
            ======================================== */
         @media (max-width: 480px) {
-            .container { padding-left: 1rem; padding-right: 1rem; }
-            
+            .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+
             /* Header */
-            #header nav { padding: 0.5rem 0.75rem; }
-            #header .logo-wrap img { max-height: 32px !important; width: auto; }
-            #header .logo-wrap .wave-text { font-size: 1.1rem !important; }
+            #header nav {
+                padding: 0.5rem 0.75rem;
+            }
+
+            #header .logo-wrap img {
+                max-height: 32px !important;
+                width: auto;
+            }
+
+            #header .logo-wrap .wave-text {
+                font-size: 1.1rem !important;
+            }
+
             #header .logo-wrap .h-5,
             #header .logo-wrap .h-8,
-            #header .logo-wrap div[class*="h-"] { height: 1.15rem; }
-            
+            #header .logo-wrap div[class*="h-"] {
+                height: 1.15rem;
+            }
+
             /* Hero */
-            .hero-section { min-height: 92vh; }
-            .hero-section h1 { font-size: 1.4rem !important; line-height: 1.3; padding: 0 0.5rem; }
-            .hero-section p { font-size: 0.9rem !important; padding: 0 0.5rem; }
-            .hero-section .floating-btn { font-size: 0.875rem; padding: 0.7rem 1.5rem; }
-            
+            .hero-section {
+                min-height: 92vh;
+            }
+
+            .hero-section h1 {
+                font-size: 1.4rem !important;
+                line-height: 1.3;
+                padding: 0 0.5rem;
+            }
+
+            .hero-section p {
+                font-size: 0.9rem !important;
+                padding: 0 0.5rem;
+            }
+
+            .hero-section .floating-btn {
+                font-size: 0.875rem;
+                padding: 0.7rem 1.5rem;
+            }
+
             /* Section Titles */
-            .section-title { font-size: 1.3rem !important; line-height: 1.3; }
-            .section-subtitle { font-size: 0.875rem !important; margin-bottom: 1.75rem; }
-            
-            /* Computer Animation */
-            .computer-animation { max-width: 300px; margin-top: 25px; }
-            .laptop { max-width: 220px !important; }
-            .motherboard { width: 80px !important; height: 100px !important; }
-            .screen-content { font-size: 0.55rem !important; padding: 10px 12px !important; }
-            
+            .section-title {
+                font-size: 1.3rem !important;
+                line-height: 1.3;
+            }
+
+            .section-subtitle {
+                font-size: 0.875rem !important;
+                margin-bottom: 1.75rem;
+            }
+
+            /* Computer Animation - side by side, motherboard kiri */
+            .computer-animation {
+                max-width: 320px;
+                margin-top: 20px;
+            }
+
+            .computer-animation .flex {
+                flex-direction: row !important;
+                align-items: center !important;
+                gap: 10px !important;
+            }
+
+            .laptop {
+                max-width: 170px !important;
+                margin-right: 0 !important;
+            }
+
+            .motherboard {
+                width: 65px !important;
+                height: 80px !important;
+                margin-top: 0 !important;
+                flex-shrink: 0;
+            }
+
+            .screen-content {
+                font-size: 0.45rem !important;
+                padding: 8px 10px !important;
+            }
+
             /* Grids menjadi 1 kolom */
-            .grid.md\\:grid-cols-2 { grid-template-columns: 1fr !important; }
-            
+            .grid.md\\:grid-cols-2 {
+                grid-template-columns: 1fr !important;
+            }
+
             /* Cards */
-            .contact-card-inner { padding: 1.25rem !important; }
-            .max-w-5xl, .max-w-4xl, .max-w-6xl { padding-left: 0.25rem; padding-right: 0.25rem; }
-            
+            .contact-card-inner {
+                padding: 1.25rem !important;
+            }
+
+            .max-w-5xl,
+            .max-w-4xl,
+            .max-w-6xl {
+                padding-left: 0.25rem;
+                padding-right: 0.25rem;
+            }
+
             /* Guru */
-            .guru-photo-modern-wrapper { width: 110px; height: 110px; }
-            .guru-name-modern { font-size: 1.1rem; }
-            
+            .guru-photo-modern-wrapper {
+                width: 110px;
+                height: 110px;
+            }
+
+            .guru-name-modern {
+                font-size: 1.1rem;
+            }
+
             /* Testimony */
-            .character-card { gap: 1.25rem !important; }
-            .character-card .w-48 { width: 9rem; }
-            .space-y-20 > * + * { margin-top: 3rem; }
-            
+            .character-card {
+                gap: 1.25rem !important;
+            }
+
+            .character-card .w-48 {
+                width: 9rem;
+            }
+
+            .space-y-20>*+* {
+                margin-top: 3rem;
+            }
+
             /* Admin Contact */
-            .admin-avatar-container { width: 90px; height: 90px; }
-            
+            .admin-avatar-container {
+                width: 90px;
+                height: 90px;
+            }
+
             /* AI Section */
-            .robot-container { height: 200px; margin-top: -1rem; }
-            .robot { width: 80px; height: 145px; transform: scale(0.8); }
-            
+            .robot-container {
+                height: 200px;
+                margin-top: -1rem;
+            }
+
+            .robot {
+                width: 80px;
+                height: 145px;
+                transform: scale(0.8);
+            }
+
             /* AI Input */
-            #ai-prompt { font-size: 0.9rem; }
-            .quick-question { font-size: 0.75rem; padding: 6px 10px; }
+            #ai-prompt {
+                font-size: 0.9rem;
+            }
+
+            .quick-question {
+                font-size: 0.75rem;
+                padding: 6px 10px;
+            }
         }
 
         /* ========================================
@@ -213,64 +499,159 @@
            HP layar besar, Galaxy A/Note series
            ======================================== */
         @media (max-width: 640px) {
-            .container { padding-left: 1rem; padding-right: 1rem; }
-            
+            .container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+
             /* Header */
-            #header .logo-wrap img { max-height: 36px; width: auto; }
-            #header .logo-wrap .wave-text { font-size: 1.25rem; }
-            #header .logo-wrap .h-8 { height: 1.25rem; }
-            
+            #header .logo-wrap img {
+                max-height: 36px;
+                width: auto;
+            }
+
+            #header .logo-wrap .wave-text {
+                font-size: 1.25rem;
+            }
+
+            #header .logo-wrap .h-8 {
+                height: 1.25rem;
+            }
+
             /* Hero */
-            .hero-section h1 { font-size: 1.6rem; line-height: 1.25; padding: 0 0.5rem; }
-            .hero-section p { font-size: 0.95rem; padding: 0 0.5rem; }
-            .hero-section .floating-btn { font-size: 0.9rem; padding: 0.75rem 1.5rem; }
-            
+            .hero-section h1 {
+                font-size: 1.6rem;
+                line-height: 1.25;
+                padding: 0 0.5rem;
+            }
+
+            .hero-section p {
+                font-size: 0.95rem;
+                padding: 0 0.5rem;
+            }
+
+            .hero-section .floating-btn {
+                font-size: 0.9rem;
+                padding: 0.75rem 1.5rem;
+            }
+
             /* Section Titles */
-            .section-title { font-size: 1.45rem; line-height: 1.3; padding: 0 0.25rem; }
-            .section-subtitle { font-size: 0.9rem; margin-bottom: 2rem; padding: 0 0.25rem; }
-            
+            .section-title {
+                font-size: 1.45rem;
+                line-height: 1.3;
+                padding: 0 0.25rem;
+            }
+
+            .section-subtitle {
+                font-size: 0.9rem;
+                margin-bottom: 2rem;
+                padding: 0 0.25rem;
+            }
+
             /* Cards & Grids */
-            .contact-card-inner { padding: 1.25rem !important; }
-            .max-w-5xl, .max-w-4xl, .max-w-6xl { padding-left: 0.25rem; padding-right: 0.25rem; }
-            
-            /* Computer Animation */
-            .computer-animation { max-width: 340px; margin-top: 30px; }
-            .laptop { max-width: 240px !important; }
-            .motherboard { width: 90px !important; height: 115px !important; }
-            
+            .contact-card-inner {
+                padding: 1.25rem !important;
+            }
+
+            .max-w-5xl,
+            .max-w-4xl,
+            .max-w-6xl {
+                padding-left: 0.25rem;
+                padding-right: 0.25rem;
+            }
+
+            /* Computer Animation - side by side, motherboard kiri */
+            .computer-animation {
+                max-width: 360px;
+                margin-top: 25px;
+            }
+
+            .computer-animation .flex {
+                flex-direction: row !important;
+                align-items: center !important;
+                gap: 12px !important;
+            }
+
+            .laptop {
+                max-width: 200px !important;
+                margin-right: 0 !important;
+            }
+
+            .motherboard {
+                width: 75px !important;
+                height: 95px !important;
+                margin-top: 0 !important;
+                flex-shrink: 0;
+            }
+
             /* Karier cards: 1 kolom di mobile */
-            #karier .grid { grid-template-columns: 1fr !important; }
-            
+            #karier .grid {
+                grid-template-columns: 1fr !important;
+            }
+
             /* Testimony spacing */
-            .space-y-20 > * + * { margin-top: 3.5rem; }
-            .character-card { gap: 1.5rem !important; }
-            .character-card .w-48 { width: 10rem; }
-            
+            .space-y-20>*+* {
+                margin-top: 3.5rem;
+            }
+
+            .character-card {
+                gap: 1.5rem !important;
+            }
+
+            .character-card .w-48 {
+                width: 10rem;
+            }
+
             /* Footer */
-            footer .grid { grid-template-columns: 1fr !important; }
-            footer .border-t { flex-direction: column; text-align: center; }
-            
+            footer .grid {
+                grid-template-columns: 1fr !important;
+            }
+
+            footer .border-t {
+                flex-direction: column;
+                text-align: center;
+            }
+
             /* Touch targets min 44px */
-            .btn-submit, .floating-btn, #ask-ai-btn, [type="submit"] {
+            .btn-submit,
+            .floating-btn,
+            #ask-ai-btn,
+            [type="submit"] {
                 min-height: 44px;
                 min-width: 44px;
             }
-            .nav-link-premium, .mobile-menu-link {
+
+            .nav-link-premium,
+            .mobile-menu-link {
                 min-height: 44px;
                 display: inline-flex;
                 align-items: center;
             }
-            
+
             /* Profil section grid */
-            #profil .grid { gap: 2rem; }
-            #profil .h-96 { height: 16rem; }
-            
+            #profil .grid {
+                gap: 2rem;
+            }
+
+            #profil .h-96 {
+                height: 16rem;
+            }
+
             /* Fasilitas images */
-            #fasilitas .h-48 { height: 10rem; }
-            
+            #fasilitas .h-48 {
+                height: 10rem;
+            }
+
             /* Accordion text */
-            #accordion-container button { padding: 1rem; font-size: 0.95rem; }
-            #accordion-container .accordion-content { padding: 0.75rem 1rem; font-size: 0.9rem; }
+            #accordion-container button {
+                padding: 1rem;
+                font-size: 0.95rem;
+            }
+
+            #accordion-container .accordion-content {
+                padding: 0.75rem 1rem;
+                font-size: 0.9rem;
+            }
         }
 
         /* ========================================
@@ -278,32 +659,74 @@
            iPad Mini, tablet 7-8 inch
            ======================================== */
         @media (max-width: 768px) {
+
             /* Hero */
-            .hero-section h1 { font-size: 1.85rem; }
-            .hero-section p { font-size: 1.05rem; }
-            
-            /* Laptop + Motherboard layout */
-            .computer-animation { max-width: 380px; }
-            .computer-animation .flex { flex-direction: column !important; align-items: center !important; }
-            .laptop { margin-right: 0 !important; max-width: 280px !important; }
-            .motherboard { margin-top: 1rem; }
-            
+            .hero-section h1 {
+                font-size: 1.85rem;
+            }
+
+            .hero-section p {
+                font-size: 1.05rem;
+            }
+
+            /* Laptop + Motherboard layout - side by side, motherboard kiri */
+            .computer-animation {
+                max-width: 420px;
+            }
+
+            .computer-animation .flex {
+                flex-direction: row !important;
+                align-items: center !important;
+                gap: 16px !important;
+            }
+
+            .laptop {
+                margin-right: 0 !important;
+                max-width: 230px !important;
+            }
+
+            .motherboard {
+                width: 85px !important;
+                height: 110px !important;
+                margin-top: 0 !important;
+                flex-shrink: 0;
+            }
+
             /* Karier section: 1 kolom */
-            #karier .grid { grid-template-columns: 1fr !important; }
-            
+            #karier .grid {
+                grid-template-columns: 1fr !important;
+            }
+
             /* Testimony flex direction on mobile: always column */
-            .character-card { flex-direction: column !important; text-align: center; }
+            .character-card {
+                flex-direction: column !important;
+                text-align: center;
+            }
+
             .character-card .w-48,
-            .character-card .md\\:w-56 { width: 10rem; margin: 0 auto; }
-            .character-card > div:last-child { text-align: center !important; }
+            .character-card .md\\:w-56 {
+                width: 10rem;
+                margin: 0 auto;
+            }
+
+            .character-card>div:last-child {
+                text-align: center !important;
+            }
+
             .speech-bubble.point-left:after,
-            .speech-bubble.point-right:after { display: none; }
-            
+            .speech-bubble.point-right:after {
+                display: none;
+            }
+
             /* Admin contact layout */
-            .contact-card-inner .flex-col.sm\\:flex-row { flex-direction: column !important; }
-            
+            .contact-card-inner .flex-col.sm\\:flex-row {
+                flex-direction: column !important;
+            }
+
             /* Kurikulum grid: 1 kolom */
-            #accordion-container { grid-template-columns: 1fr !important; }
+            #accordion-container {
+                grid-template-columns: 1fr !important;
+            }
         }
 
         /* ========================================
@@ -311,14 +734,23 @@
            iPad, tablet 10 inch
            ======================================== */
         @media (max-width: 1024px) and (min-width: 769px) {
-            .hero-section h1 { font-size: 2.5rem; }
-            .hero-section p { font-size: 1.15rem; }
-            
+            .hero-section h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-section p {
+                font-size: 1.15rem;
+            }
+
             /* Guru grid: 2 kolom */
-            .guru-grid-modern { grid-template-columns: repeat(2, 1fr) !important; }
-            
+            .guru-grid-modern {
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
+
             /* Karier: 2 kolom */
-            #karier .grid { grid-template-columns: repeat(2, 1fr) !important; }
+            #karier .grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
         }
 
         /* ========================================
@@ -326,18 +758,37 @@
            Laptop dan Desktop
            ======================================== */
         @media (min-width: 1025px) {
-            .hero-section h1 { font-size: 3.5rem; }
+            .hero-section h1 {
+                font-size: 3.5rem;
+            }
         }
 
         /* ========================================
            🔧 LANDSCAPE MODE (HP Horizontal) 
            ======================================== */
         @media (max-height: 500px) and (orientation: landscape) {
-            .hero-section { min-height: auto; padding: 3rem 0; }
-            .computer-animation { max-width: 300px; margin-top: 15px; }
-            .laptop { max-width: 200px !important; }
-            .motherboard { width: 70px !important; height: 90px !important; }
-            .robot-container { height: 150px; }
+            .hero-section {
+                min-height: auto;
+                padding: 3rem 0;
+            }
+
+            .computer-animation {
+                max-width: 300px;
+                margin-top: 15px;
+            }
+
+            .laptop {
+                max-width: 200px !important;
+            }
+
+            .motherboard {
+                width: 70px !important;
+                height: 90px !important;
+            }
+
+            .robot-container {
+                height: 150px;
+            }
         }
 
         /* ========================================
@@ -345,7 +796,9 @@
            Monitor besar, Ultra-wide
            ======================================== */
         @media (min-width: 1440px) {
-            .container { max-width: 1320px; }
+            .container {
+                max-width: 1320px;
+            }
         }
 
         /* --- ✨ EFEK SCROLL PROFESIONAL BARU ✨ --- */
@@ -4296,11 +4749,13 @@
             visibility: visible !important;
             opacity: 1 !important;
         }
+
         @media (max-width: 767px) {
             #desktop-menu {
                 display: none !important;
             }
         }
+
         @media (min-width: 768px) {
             #desktop-menu {
                 display: flex !important;
@@ -4311,11 +4766,13 @@
             visibility: visible !important;
             opacity: 1 !important;
         }
+
         @media (max-width: 767px) {
             #mobile-menu-button {
                 display: block !important;
             }
         }
+
         @media (min-width: 768px) {
             #mobile-menu-button {
                 display: none !important;
@@ -4983,10 +5440,12 @@
             <div class="flex-grow-0 md:flex-shrink-0 flex items-center">
                 <a href="#" class="flex items-center justify-start">
                     <span class="inline-flex items-center gap-2 sm:gap-3 logo-wrap">
-                        <img src="logo ypt.png" alt="Logo YPT" style="height: 50px; width: auto; object-fit: contain; max-height: 50px;"
+                        <img src="logo ypt.png" alt="Logo YPT"
+                            style="height: 50px; width: auto; object-fit: contain; max-height: 50px;"
                             class="logo-img h-8 sm:h-10 md:h-[50px] md:max-h-[60px] w-auto">
                         <div class="h-5 sm:h-8 w-[2px] bg-gray-300 dark:bg-gray-600 rounded-full mx-0.5 sm:mx-1"></div>
-                        <img src="logo tjkt.png" alt="Logo TJKT" style="height: 45px; width: auto; object-fit: contain; max-height: 45px;"
+                        <img src="logo tjkt.png" alt="Logo TJKT"
+                            style="height: 45px; width: auto; object-fit: contain; max-height: 45px;"
                             class="logo-img h-7 sm:h-9 md:h-[45px] md:max-h-[55px] w-auto">
                         <span class="text-lg sm:text-xl md:text-2xl font-black tracking-tighter wave-text ml-1"
                             style="background-size: 300% auto;">
@@ -5130,7 +5589,8 @@
             <div class="tjkt-floating data-packet" style="top: 30%; left: 60%;"></div>
 
             <div class="container mx-auto px-4 sm:px-6 relative z-10" data-scroll="scale">
-                <h1 class="font-black mb-4 leading-tight glow-text text-2xl sm:text-3xl md:text-4xl lg:text-5xl" data-scroll="top">
+                <h1 class="font-black mb-4 leading-tight glow-text text-2xl sm:text-3xl md:text-4xl lg:text-5xl"
+                    data-scroll="top">
                     Membangun Arsitek Dunia Digital Masa Depan
                 </h1>
                 <p class="mb-8 max-w-4xl mx-auto font-light text-white" data-scroll="bottom"
@@ -5146,7 +5606,7 @@
                 </a>
                 <div class="computer-animation" data-scroll="flip">
                     <!-- ✨ WRAPPER BARU UNTUK LAPTOP DAN MOTHERBOARD ✨ -->
-                    <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8">
+                    <div class="flex flex-row items-center justify-center gap-2 sm:gap-4 md:gap-8">
                         <!-- ✨ MOTHERBOARD (SEKARANG MUNCUL DI SEMUA UKURAN) ✨ -->
                         <div class="motherboard">
                             <div class="circuit-line"></div>
@@ -5347,7 +5807,8 @@
                         </div>
                         <div
                             class="relative bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-xl card-hover-effect">
-                            <img src="profil 3.jpg" alt="Siswa TJKT sedang praktik" class="w-full h-56 sm:h-72 md:h-96 object-contain"
+                            <img src="profil 3.jpg" alt="Siswa TJKT sedang praktik"
+                                class="w-full h-56 sm:h-72 md:h-96 object-contain"
                                 onerror="this.onerror=null;this.src='https://placehold.co/600x400/3b82f6/ffffff?text=Lab+TJKT+SMK+YPT';">
                         </div>
                     </div>
@@ -5663,7 +6124,8 @@
             </div>
         </section>
 
-        <section id="karakter" class="py-12 sm:py-16 md:py-24 bg-white dark:bg-gray-800 overflow-hidden gradient-section">
+        <section id="karakter"
+            class="py-12 sm:py-16 md:py-24 bg-white dark:bg-gray-800 overflow-hidden gradient-section">
             <div class="container mx-auto px-4 sm:px-6">
                 <div data-scroll>
                     <h2 class="section-title">TESTIMONY SISWA-SISWI YPT PRINGSEWU&nbsp;💥</h2>
@@ -5674,7 +6136,8 @@
                 <div class="space-y-10 sm:space-y-14 md:space-y-20 mt-8 sm:mt-12 md:mt-16">
 
                     <!-- Karakter 1: Revan (Laki-laki) -->
-                    <div class="character-card flex flex-col md:flex-row items-center gap-4 sm:gap-6 md:gap-12" data-scroll>
+                    <div class="character-card flex flex-col md:flex-row items-center gap-4 sm:gap-6 md:gap-12"
+                        data-scroll>
                         <div class="w-36 sm:w-48 md:w-56 flex-shrink-0">
                             <img src="revan.png" alt="Ilustrasi Siswa TJKT Laki-laki"
                                 class="w-full h-auto object-contain transition-transform duration-300 hover:scale-105">
@@ -5712,7 +6175,8 @@
                     </div>
 
                     <!-- Karakter 3: Rihan (Laki-laki) -->
-                    <div class="character-card flex flex-col md:flex-row items-center gap-4 sm:gap-6 md:gap-12" data-scroll>
+                    <div class="character-card flex flex-col md:flex-row items-center gap-4 sm:gap-6 md:gap-12"
+                        data-scroll>
                         <div class="w-36 sm:w-48 md:w-56 flex-shrink-0">
                             <img src="rihan.png" alt="Ilustrasi Siswa TJKT Laki-laki"
                                 class="w-full h-auto object-contain transition-transform duration-300 hover:scale-105">
@@ -5747,7 +6211,8 @@
                     </div>
 
                     <!-- Karakter 5: Rofik (Laki-laki) -->
-                    <div class="character-card flex flex-col md:flex-row items-center gap-4 sm:gap-6 md:gap-12" data-scroll>
+                    <div class="character-card flex flex-col md:flex-row items-center gap-4 sm:gap-6 md:gap-12"
+                        data-scroll>
                         <div class="w-36 sm:w-48 md:w-56 flex-shrink-0">
                             <img src="rofik.png" alt="Ilustrasi Siswa TJKT Laki-laki"
                                 class="w-full h-auto object-contain transition-transform duration-300 hover:scale-105">
@@ -5779,7 +6244,8 @@
                     <div class="gap-8 md:gap-12">
                         <!-- Form Card (Sekarang Full-width) -->
                         <div class="contact-card card-hover-effect" data-scroll>
-                            <div class="contact-card-inner p-4 sm:p-6 md:p-8 bg-white dark:bg-gray-800 border dark:border-gray-700">
+                            <div
+                                class="contact-card-inner p-4 sm:p-6 md:p-8 bg-white dark:bg-gray-800 border dark:border-gray-700">
                                 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
                                     <div class="flex items-center gap-4">
                                         <div class="admin-avatar-container">
@@ -5891,8 +6357,8 @@
     </main>
 
     <footer class="bg-gradient-to-br from-cyan-500 to-blue-500 text-white py-8 sm:py-12">
-<div class="container mx-auto px-4 sm:px-6">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+        <div class="container mx-auto px-4 sm:px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
                 <div>
                     <h3 class="text-xl font-bold mb-4 flex items-center">
                         <span class="inline-flex items-center gap-2 logo-wrap">
@@ -5947,15 +6413,43 @@
                     </div>
                 </div>
             </div>
-            <div class="border-t border-white/20 mt-8 sm:mt-12 pt-6 sm:pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-6 px-2">
-                <p class="text-white/90 text-center sm:text-left text-sm sm:text-base">© 2026 Jurusan TJKT - SMK YPT PRINGSEWU. All Rights Reserved.</p>
+            <div
+                class="border-t border-white/20 mt-8 sm:mt-12 pt-6 sm:pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 sm:gap-6 px-2">
+                <p class="text-white/90 text-center sm:text-left text-sm sm:text-base">© 2026 Jurusan TJKT - SMK YPT
+                    PRINGSEWU. All Rights Reserved.</p>
                 <div class="flex items-center gap-8">
-                    <a href="https://www.instagram.com/tjktsmkyptpringsewu?igsh=bnJvd241bmRvNDA=" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-white/90 hover:text-white transition text-sm" aria-label="Instagram">
-                        <i class="fab fa-instagram icon-instagram text-xl"></i>
+                    <a href="https://www.instagram.com/tjktsmkyptpringsewu?igsh=bnJvd241bmRvNDA=" target="_blank"
+                        rel="noopener noreferrer"
+                        class="flex items-center gap-2 text-white/90 hover:text-white transition text-sm hover:scale-110 duration-300"
+                        aria-label="Instagram">
+                        <!-- Instagram Real Icon -->
+                        <div style="width:28px;height:28px;border-radius:7px;background:radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="2" y="2" width="20" height="20" rx="5" stroke="white" stroke-width="2"/>
+                                <circle cx="12" cy="12" r="5" stroke="white" stroke-width="2"/>
+                                <circle cx="17.5" cy="6.5" r="1.5" fill="white"/>
+                            </svg>
+                        </div>
                         <span>Instagram</span>
                     </a>
-                    <a href="https://www.tiktok.com/@tjktsmkyptpringsewu?_r=1&_t=ZS-93oyxau0Tqx" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-white/90 hover:text-white transition text-sm" aria-label="TikTok">
-                        <i class="fab fa-tiktok icon-tiktok text-xl"></i>
+                    <a href="https://www.tiktok.com/@tjktsmkyptpringsewu?_r=1&_t=ZS-93oyxau0Tqx" target="_blank"
+                        rel="noopener noreferrer"
+                        class="flex items-center gap-2 text-white/90 hover:text-white transition text-sm hover:scale-110 duration-300"
+                        aria-label="TikTok">
+                        <!-- TikTok Real Icon -->
+                        <div style="width:28px;height:28px;border-radius:7px;background:#010101;display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;overflow:hidden;">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Cyan shadow layer -->
+                                <path d="M9.5 2.5H13.5V16C13.5 18.2091 11.7091 20 9.5 20C7.29086 20 5.5 18.2091 5.5 16C5.5 13.7909 7.29086 12 9.5 12V15.5C9.22386 15.5 9 15.7239 9 16C9 16.2761 9.22386 16.5 9.5 16.5C9.77614 16.5 10 16.2761 10 16V2.5" stroke="#25F4EE" stroke-width="2" style="transform:translate(-0.5px, 0.5px)"/>
+                                <path d="M13.5 6.5C15 7.5 16.5 8 18.5 8" stroke="#25F4EE" stroke-width="2" style="transform:translate(-0.5px, 0.5px)"/>
+                                <!-- Pink shadow layer -->
+                                <path d="M9.5 2.5H13.5V16C13.5 18.2091 11.7091 20 9.5 20C7.29086 20 5.5 18.2091 5.5 16C5.5 13.7909 7.29086 12 9.5 12V15.5C9.22386 15.5 9 15.7239 9 16C9 16.2761 9.22386 16.5 9.5 16.5C9.77614 16.5 10 16.2761 10 16V2.5" stroke="#FE2C55" stroke-width="2" style="transform:translate(0.5px, -0.5px)"/>
+                                <path d="M13.5 6.5C15 7.5 16.5 8 18.5 8" stroke="#FE2C55" stroke-width="2" style="transform:translate(0.5px, -0.5px)"/>
+                                <!-- White main layer -->
+                                <path d="M9.5 2.5H13.5V16C13.5 18.2091 11.7091 20 9.5 20C7.29086 20 5.5 18.2091 5.5 16C5.5 13.7909 7.29086 12 9.5 12V15.5C9.22386 15.5 9 15.7239 9 16C9 16.2761 9.22386 16.5 9.5 16.5C9.77614 16.5 10 16.2761 10 16V2.5" stroke="white" stroke-width="1.5"/>
+                                <path d="M13.5 6.5C15 7.5 16.5 8 18.5 8" stroke="white" stroke-width="1.5"/>
+                            </svg>
+                        </div>
                         <span>TikTok</span>
                     </a>
                 </div>
