@@ -5813,7 +5813,8 @@
                                     <i class="fas fa-comment-dots text-blue-600 dark:text-blue-400 text-sm"></i>
                                 </div>
                                 <div class="flex-1">
-                                    <span class="text-gray-500 dark:text-gray-400">"Saya siap membantu😘."
+                                    <span class="text-gray-500 dark:text-gray-400">
+                                        "Saya siap membantu😘."
                                        </span>
                                 </div>
                             </div>
@@ -6704,15 +6705,17 @@
                 const existingParticles = heroSection.querySelectorAll('.particle');
                 existingParticles.forEach(particle => particle.remove());
 
-                // Buat partikel baru dengan distribusi dan efek glow yang lebih kuat
+                // Buat partikel baru dengan warna biru/cyan/ungu seperti sebelumnya,
+                // tapi lebih soft (tidak terlalu tebal/menyala)
                 const colors = [
-                    'rgba(59,130,246,0.9)',   // biru
-                    'rgba(56,189,248,0.9)',  // cyan
-                    'rgba(139,92,246,0.9)',  // ungu
-                    'rgba(244,63,94,0.9)'    // pink
+                    'rgba(59,130,246,0.55)',   // biru soft
+                    'rgba(56,189,248,0.55)',   // cyan soft
+                    'rgba(139,92,246,0.55)',   // ungu soft
+                    'rgba(244,63,94,0.5)'      // pink soft
                 ];
 
-                const count = 60;
+                // Jumlah partikel dikurangi supaya tampilan lebih clean
+                const count = 26;
                 for (let i = 0; i < count; i++) {
                     const particle = document.createElement('div');
                     particle.className = 'particle';
@@ -6730,8 +6733,8 @@
                         height: ${size}px;
                         left: ${startX}px;
                         top: ${startY}px;
-                        background: radial-gradient(circle, ${color} 0%, rgba(15,23,42,0.1) 70%, transparent 100%);
-                        box-shadow: 0 0 12px ${color}, 0 0 24px ${color};
+                        background: radial-gradient(circle, ${color} 0%, rgba(15,23,42,0.04) 70%, transparent 100%);
+                        box-shadow: 0 0 7px ${color}, 0 0 14px ${color};
                         animation-delay: ${delay}s;
                         animation-duration: ${duration}s;
                     `;
