@@ -125,11 +125,12 @@
                 height: 1rem;
             }
 
-            /* Hero - Compact Mobile */
+            /* Hero - Pas Penuh Layar Mobile */
             .hero-section {
-                min-height: auto;
-                padding-top: 4.5rem;
-                padding-bottom: 1rem;
+                min-height: 100vh;
+                min-height: 100dvh;
+                padding-top: 4rem;
+                padding-bottom: 0.5rem;
             }
 
             .hero-section>.container {
@@ -167,6 +168,7 @@
             .tjkt-floating {
                 display: none !important;
             }
+
             .particles {
                 opacity: 0.3;
             }
@@ -388,9 +390,10 @@
 
             /* Hero */
             .hero-section {
-                min-height: auto;
-                padding-top: 4.5rem;
-                padding-bottom: 1rem;
+                min-height: 100vh;
+                min-height: 100dvh;
+                padding-top: 4rem;
+                padding-bottom: 0.5rem;
             }
 
             .hero-section>.container {
@@ -428,6 +431,7 @@
             .tjkt-floating:nth-child(n+5) {
                 display: none !important;
             }
+
             .particles {
                 opacity: 0.4;
             }
@@ -1004,7 +1008,7 @@
 
         .hero-section {
             position: relative;
-            min-height: auto;
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1017,11 +1021,6 @@
             background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%;
         }
 
-        @media (min-width: 768px) {
-            .hero-section {
-                min-height: 100vh;
-            }
-        }
 
         .hero-section::before {
             content: '';
@@ -6786,13 +6785,15 @@
                     // ✨ PROMPT DIPERBARUI UNTUK JAWABAN TERSTRUKTUR & SINGKAT ✨
                     const systemPrompt = `Anda adalah asisten AI yang ramah untuk website jurusan TJKT. Jawab pertanyaan dengan ringkas namun informatif, langsung ke intinya. Jika jawabannya berupa daftar, gunakan format daftar (list) dengan tanda hubung (-). Penting: **Tebalkan** nama orang, benda, atau istilah kunci yang menjadi inti jawaban menggunakan format Markdown (contoh: **Teks Tebal**). Di akhir seluruh jawaban, selalu tambahkan baris baru dengan tulisan "Terimakasih telah bertanya 😊😍".`;
 
-                    // Model OpenRouter yang bagus dan tersedia (dengan prioritas)
+                    // Model OpenRouter yang tersedia dan cepat (updated Feb 2026)
                     const modelsToTry = [
-                        'google/gemini-2.0-flash-exp:free', // Model terbaru, sangat cepat & gratis
-                        'google/gemini-flash-1.5',      // Cepat dan bagus
-                        'openai/gpt-4o-mini',           // Lebih cepat & pintar dari GPT-3.5
-                        'anthropic/claude-3-haiku',     // Claude Haiku - cepat
-                        'meta-llama/llama-3-8b-instruct:free' // Open source, ringan
+                        'google/gemini-2.0-flash-001',          // Gemini 2.0 Flash - sangat cepat
+                        'google/gemini-2.5-flash-preview',      // Gemini 2.5 Flash preview
+                        'google/gemini-flash-1.5',              // Gemini 1.5 Flash - stabil
+                        'meta-llama/llama-3.3-70b-instruct',    // Llama 3.3 70B - pintar & gratis
+                        'mistralai/mistral-small-24b-instruct-2501:free', // Mistral Small - gratis
+                        'deepseek/deepseek-chat-v3-0324:free',  // DeepSeek V3 - gratis & bagus
+                        'qwen/qwen-2.5-72b-instruct:free'       // Qwen 2.5 72B - gratis
                     ];
 
                     let lastError = null;
@@ -6824,6 +6825,10 @@
 
                             console.log('📤 Mengirim request ke OpenRouter API...');
 
+                            // Timeout 15 detik per model
+                            const controller = new AbortController();
+                            const timeoutId = setTimeout(() => controller.abort(), 15000);
+
                             const response = await fetch(apiUrl, {
                                 method: 'POST',
                                 headers: {
@@ -6833,7 +6838,10 @@
                                     'X-Title': 'TJKT AI Konselor'
                                 },
                                 body: JSON.stringify(payload),
+                                signal: controller.signal
                             });
+
+                            clearTimeout(timeoutId);
 
                             const responseText = await response.text();
                             console.log(`📊 Status: ${response.status} untuk ${modelName}`);
