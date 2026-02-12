@@ -5663,8 +5663,10 @@
 
                 <p class="mt-8 sm:mt-10 md:mt-12 mb-4 sm:mb-5 md:mb-6 max-w-2xl mx-auto font-light text-sm sm:text-base md:text-lg leading-relaxed"
                     data-scroll="bottom" style="color: rgba(255,255,255,0.85); text-shadow: 0 1px 4px rgba(0,0,0,0.3);">
-                    Jurusan Teknik Jaringan Komputer dan Telekomunikasi (TJKT) membekali Anda dengan
-                    keahlian untuk merancang, membangun, dan mengelola infrastruktur IT yang andal.
+                    Jurusan Teknik Jaringan Komputer dan Telekomunikasi (TJKT) SMK YPT PRINGSEWU membekali Anda dengan keahlian untuk merancang, membangun, dan mengelola infrastruktur IT yang andal.
+
+                    
+                    
                 </p>
 
                 <div class="mt-6 sm:mt-8 md:mt-10 mb-4 sm:mb-5 md:mb-6" data-scroll="bounce">
@@ -5811,7 +5813,7 @@
                                     <i class="fas fa-comment-dots text-blue-600 dark:text-blue-400 text-sm"></i>
                                 </div>
                                 <div class="flex-1">
-                                    <span class="text-gray-500 dark:text-gray-400">halo
+                                    <span class="text-gray-500 dark:text-gray-400">"Saya siap membantu😘."
                                        </span>
                                 </div>
                             </div>
@@ -6693,32 +6695,46 @@
                 }
             });
 
-            // ✨ PARTICLE EFFECT ✨
+            // ✨ PARTICLE EFFECT – HERO BERGERAK DENGAN TITIK GLOW ✨
             function createParticles() {
                 const heroSection = document.querySelector('.hero-section');
                 if (!heroSection) return;
 
-                // Clear existing particles
+                // Hapus partikel lama
                 const existingParticles = heroSection.querySelectorAll('.particle');
                 existingParticles.forEach(particle => particle.remove());
 
-                // Create new particles with better distribution
-                for (let i = 0; i < 25; i++) {
+                // Buat partikel baru dengan distribusi dan efek glow yang lebih kuat
+                const colors = [
+                    'rgba(59,130,246,0.9)',   // biru
+                    'rgba(56,189,248,0.9)',  // cyan
+                    'rgba(139,92,246,0.9)',  // ungu
+                    'rgba(244,63,94,0.9)'    // pink
+                ];
+
+                const count = 60;
+                for (let i = 0; i < count; i++) {
                     const particle = document.createElement('div');
                     particle.className = 'particle';
 
-                    // Better positioning and sizing
-                    const size = Math.random() * 4 + 2; // 2-6px
+                    // Posisi, ukuran, dan timing acak
+                    const size = Math.random() * 6 + 3; // 3–9px
                     const startX = Math.random() * window.innerWidth;
-                    const delay = Math.random() * 12; // 0-12s delay
+                    const startY = Math.random() * window.innerHeight;
+                    const delay = Math.random() * 15; // 0–15s delay
+                    const duration = 18 + Math.random() * 10; // 18–28s
+                    const color = colors[Math.floor(Math.random() * colors.length)];
 
                     particle.style.cssText = `
-                    width: ${size}px;
-                    height: ${size}px;
-                    left: ${startX}px;
-                    animation-delay: ${delay}s;
-                    animation-duration: ${12 + Math.random() * 6}s;
-                `;
+                        width: ${size}px;
+                        height: ${size}px;
+                        left: ${startX}px;
+                        top: ${startY}px;
+                        background: radial-gradient(circle, ${color} 0%, rgba(15,23,42,0.1) 70%, transparent 100%);
+                        box-shadow: 0 0 12px ${color}, 0 0 24px ${color};
+                        animation-delay: ${delay}s;
+                        animation-duration: ${duration}s;
+                    `;
 
                     heroSection.appendChild(particle);
                 }
