@@ -129,7 +129,7 @@
             .hero-section {
                 min-height: 100vh;
                 min-height: 100dvh;
-                padding-top: 4rem;
+                padding-top: 3.5rem;
                 padding-bottom: 0.5rem;
             }
 
@@ -392,8 +392,8 @@
             .hero-section {
                 min-height: 100vh;
                 min-height: 100dvh;
-                padding-top: 4rem;
-                padding-bottom: 0.5rem;
+                padding-top: 4.5rem;
+                padding-bottom: 1.25rem;
             }
 
             .hero-section>.container {
@@ -405,17 +405,17 @@
 
             .hero-section h1 {
                 font-size: 1.5rem !important;
-                line-height: 1.25;
+                line-height: 1.3;
                 padding: 0;
                 letter-spacing: -0.02em;
-                margin-bottom: 0.75rem !important;
+                margin-bottom: 1.1rem !important;
             }
 
             .hero-section p {
                 font-size: 0.85rem !important;
-                padding: 0 0.5rem;
-                line-height: 1.65;
-                margin-bottom: 1.25rem !important;
+                padding: 0 1rem;
+                line-height: 1.8;
+                margin-bottom: 1.75rem !important;
             }
 
             .hero-section .floating-btn {
@@ -424,7 +424,7 @@
             }
 
             .computer-animation {
-                margin-top: 1.25rem !important;
+                margin-top: 1.75rem !important;
             }
 
             /* Reduce visual clutter slightly */
@@ -1035,6 +1035,7 @@
             background-size: 60px 60px, 80px 80px;
             animation: background-shift 20s linear infinite;
             z-index: 1;
+            pointer-events: none;
         }
 
         .hero-section::after {
@@ -1048,6 +1049,7 @@
                 radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.05) 0%, transparent 70%);
             animation: pulse-glow 8s ease-in-out infinite;
             z-index: 1;
+            pointer-events: none;
         }
 
         @keyframes background-shift {
@@ -5635,7 +5637,7 @@
     <main>
         <section id="beranda"
             class="hero-section flex items-center justify-center text-white text-center relative py-8 sm:py-12 md:py-20">
-            <div class="particles" id="particles-container"></div>
+            <div class="particles" id="particles-container" style="pointer-events: none;"></div>
 
             <!-- ✨ TJKT FLOATING ELEMENTS ✨ -->
             <div class="tjkt-floating network-node" style="top: 15%; left: 10%;"></div>
@@ -5666,9 +5668,9 @@
                 </p>
 
                 <div class="mb-2" data-scroll="bounce">
-                    <a href="#profil"
-                        class="bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 text-white font-bold py-2.5 px-6 sm:py-3 sm:px-8 rounded-full text-sm sm:text-base md:text-lg transition duration-300 btn-pulse inline-flex items-center floating-btn relative z-50 shadow-lg shadow-blue-500/25"
-                        style="z-index: 1000; position: relative;">
+                    <a href="#profil" id="btn-jelajahi"
+                        class="bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 text-white font-bold py-2.5 px-6 sm:py-3 sm:px-8 rounded-full text-sm sm:text-base md:text-lg transition duration-300 btn-pulse inline-flex items-center floating-btn shadow-lg shadow-blue-500/25"
+                        style="position: relative; z-index: 1000;">
                         Jelajahi Jurusan <i class="fas fa-arrow-right ml-2"></i>
                     </a>
                 </div>
@@ -5809,9 +5811,8 @@
                                     <i class="fas fa-comment-dots text-blue-600 dark:text-blue-400 text-sm"></i>
                                 </div>
                                 <div class="flex-1">
-                                    <span class="text-gray-500 dark:text-gray-400">Halo! Saya AI Konselor TJKT, asisten
-                                        virtualmu. Siap menjawab semua pertanyaan seputar jurusan TJKT. Silakan ketik
-                                        pertanyaanmu di bawah ini.</span>
+                                    <span class="text-gray-500 dark:text-gray-400">
+                                       </span>
                                 </div>
                             </div>
                         </div>
@@ -6671,26 +6672,26 @@
             window.addEventListener('resize', ensureHeaderVisible);
             window.addEventListener('load', ensureHeaderVisible);
 
-            // Ensure explore button is clickable
-            const exploreButton = document.querySelector('a[href="#profil"]');
-            if (exploreButton) {
-                exploreButton.style.zIndex = '1000';
-                exploreButton.style.position = 'relative';
-                exploreButton.style.pointerEvents = 'auto';
-                exploreButton.style.cursor = 'pointer';
+            // ✨ HERO BUTTON: "Jelajahi Jurusan" – klik di semua device ✨
+            document.addEventListener('click', function (e) {
+                const heroBtn = document.getElementById('btn-jelajahi');
+                const targetSection = document.getElementById('profil');
+                if (!heroBtn || !targetSection) return;
 
-                // Add click event listener
-                exploreButton.addEventListener('click', function (e) {
+                const rect = heroBtn.getBoundingClientRect();
+                const x = e.clientX;
+                const y = e.clientY;
+
+                // Jika titik klik berada di dalam area tombol hero,
+                // selalu scroll halus ke section profil (fallback universal)
+                if (x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom) {
                     e.preventDefault();
-                    const targetSection = document.getElementById('profil');
-                    if (targetSection) {
-                        targetSection.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }
-                });
-            }
+                    targetSection.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
 
             // ✨ PARTICLE EFFECT ✨
             function createParticles() {
@@ -6724,8 +6725,12 @@
             }
             createParticles();
 
-            // --- BAGIAN 2: LOGIKA AI ---
-            const API_KEY = "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"; // 👈 API Key OpenRouter
+            // --- BAGIAN 2: LOGIKA AI (OpenRouter) ---
+            // TODO: Ganti dengan API Key OpenRouter milik Anda sendiri.
+            // Jangan pernah commit / bagikan API key ke publik (GitHub, dll).
+            const OPENROUTER_API_KEY = "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";
+            // Pakai model gratis dari OpenRouter (bisa diganti sesuai kebutuhan).
+            const OPENROUTER_MODEL = "stepfun/step-3.5-flash:free";
             const askAiBtn = document.getElementById('ask-ai-btn');
             const aiPromptInput = document.getElementById('ai-prompt');
             const aiResponseDiv = document.getElementById('ai-response');
@@ -6770,8 +6775,8 @@
                     aiResponseDiv.innerText = 'Mohon ketik pertanyaan terlebih dahulu.';
                     return;
                 }
-                if (!API_KEY || API_KEY === "MASUKKAN_API_KEY_ANDA_DI_SINI") {
-                    aiResponseDiv.innerText = 'API Key belum dimasukkan. Silakan edit kode dan masukkan API Key Google Gemini Anda.';
+                if (!OPENROUTER_API_KEY || OPENROUTER_API_KEY === "ISI_API_KEY_OPENROUTER_ANDA_DI_SINI") {
+                    aiResponseDiv.innerText = 'API Key OpenRouter belum dimasukkan. Silakan edit kode dan masukkan API Key OpenRouter Anda (jangan dibagikan ke orang lain).';
                     return;
                 }
 
@@ -6785,168 +6790,101 @@
                     // ✨ PROMPT DIPERBARUI UNTUK JAWABAN TERSTRUKTUR & SINGKAT ✨
                     const systemPrompt = `Anda adalah asisten AI yang ramah untuk website jurusan TJKT. Jawab pertanyaan dengan ringkas namun informatif, langsung ke intinya. Jika jawabannya berupa daftar, gunakan format daftar (list) dengan tanda hubung (-). Penting: **Tebalkan** nama orang, benda, atau istilah kunci yang menjadi inti jawaban menggunakan format Markdown (contoh: **Teks Tebal**). Di akhir seluruh jawaban, selalu tambahkan baris baru dengan tulisan "Terimakasih telah bertanya 😊😍".`;
 
-                    // Model OpenRouter yang tersedia dan cepat (updated Feb 2026)
-                    const modelsToTry = [
-                        'google/gemini-2.0-flash-001',          // Gemini 2.0 Flash - sangat cepat
-                        'google/gemini-2.5-flash-preview',      // Gemini 2.5 Flash preview
-                        'google/gemini-flash-1.5',              // Gemini 1.5 Flash - stabil
-                        'meta-llama/llama-3.3-70b-instruct',    // Llama 3.3 70B - pintar & gratis
-                        'mistralai/mistral-small-24b-instruct-2501:free', // Mistral Small - gratis
-                        'deepseek/deepseek-chat-v3-0324:free',  // DeepSeek V3 - gratis & bagus
-                        'qwen/qwen-2.5-72b-instruct:free'       // Qwen 2.5 72B - gratis
+                    // Susun pesan untuk OpenRouter (format chat-completions)
+                    const messages = [
+                        {
+                            role: 'system',
+                            content: systemPrompt
+                        },
+                        {
+                            role: 'user',
+                            content: prompt
+                        }
                     ];
 
-                    let lastError = null;
-                    let requestSuccessful = false;
+                    // Endpoint REST OpenRouter
+                    const apiUrl = 'https://openrouter.ai/api/v1/chat/completions';
 
-                    for (const modelName of modelsToTry) {
-                        try {
-                            console.log(`🔄 Mencoba model: ${modelName}`);
+                    const payload = {
+                        model: OPENROUTER_MODEL,
+                        messages,
+                        temperature: 0.7,
+                        max_tokens: 512
+                    };
 
-                            // OpenRouter API endpoint
-                            const apiUrl = 'https://openrouter.ai/api/v1/chat/completions';
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
+                            // Header berikut ini direkomendasikan oleh OpenRouter:
+                            'HTTP-Referer': window.location.origin || 'http://localhost',
+                            'X-Title': 'AI Konselor TJKT'
+                        },
+                        body: JSON.stringify(payload)
+                    });
 
-                            // Format payload OpenRouter (Chat Completion format)
-                            const payload = {
-                                model: modelName,
-                                messages: [
-                                    {
-                                        role: 'system',
-                                        content: systemPrompt
-                                    },
-                                    {
-                                        role: 'user',
-                                        content: prompt
-                                    }
-                                ],
-                                temperature: 0.7,
-                                max_tokens: 1024
-                            };
+                    const data = await response.json();
 
-                            console.log('📤 Mengirim request ke OpenRouter API...');
+                    if (!response.ok) {
+                        console.error('❌ OpenRouter API error:', data);
+                        let rawMsg = data.error?.message || data.message || `HTTP ${response.status}`;
+                        throw new Error(rawMsg);
+                    }
 
-                            // Timeout 15 detik per model
-                            const controller = new AbortController();
-                            const timeoutId = setTimeout(() => controller.abort(), 15000);
+                    // Ambil teks dari choices (format OpenRouter)
+                    const choices = data.choices || [];
+                    if (!choices.length) {
+                        throw new Error('AI tidak memberikan jawaban.');
+                    }
 
-                            const response = await fetch(apiUrl, {
-                                method: 'POST',
-                                headers: {
-                                    'Content-Type': 'application/json',
-                                    'Authorization': `Bearer ${API_KEY}`,
-                                    'HTTP-Referer': window.location.origin,
-                                    'X-Title': 'TJKT AI Konselor'
-                                },
-                                body: JSON.stringify(payload),
-                                signal: controller.signal
-                            });
+                    const firstChoice = choices[0] || {};
+                    const message = firstChoice.message || firstChoice || {};
 
-                            clearTimeout(timeoutId);
-
-                            const responseText = await response.text();
-                            console.log(`📊 Status: ${response.status} untuk ${modelName}`);
-
-                            if (!response.ok) {
-                                let errorData = {};
-                                try {
-                                    errorData = JSON.parse(responseText);
-                                } catch (e) {
-                                    errorData = { error: { message: responseText.substring(0, 200) } };
-                                }
-
-                                const errorMessage = errorData.error?.message || errorData.error?.code || `HTTP ${response.status}`;
-                                console.warn(`❌ ${modelName} gagal:`, errorMessage);
-                                lastError = errorMessage;
-
-                                // Jika error karena model tidak ditemukan atau tidak tersedia, skip
-                                if (errorMessage.includes('not found') || errorMessage.includes('not available') || errorMessage.includes('model_not_found')) {
-                                    continue;
-                                }
-
-                                // Jika error karena API key atau auth, langsung throw
-                                if (errorMessage.includes('unauthorized') || errorMessage.includes('authentication') || errorMessage.includes('API key') || errorMessage.includes('401') || errorMessage.includes('403')) {
-                                    throw new Error(`Authentication error: ${errorMessage}`);
-                                }
-
-                                continue; // Coba model berikutnya
-                            }
-
-                            // Parse response
-                            let data;
-                            try {
-                                data = JSON.parse(responseText);
-                            } catch (e) {
-                                console.error('❌ Gagal parse response:', e);
-                                lastError = 'Format response tidak valid';
-                                continue;
-                            }
-
-                            console.log('✅ Response berhasil diterima');
-
-                            // Handle OpenRouter response structure
-                            if (data.choices && data.choices.length > 0) {
-                                const choice = data.choices[0];
-
-                                // Check for finish reason
-                                if (choice.finish_reason === 'content_filter' || choice.finish_reason === 'safety') {
-                                    lastError = 'Konten diblokir oleh safety filter.';
-                                    continue;
-                                }
-
-                                if (choice.message && choice.message.content) {
-                                    let aiText = choice.message.content;
-
-                                    if (!aiText || aiText.trim() === '') {
-                                        lastError = 'AI tidak memberikan jawaban.';
-                                        continue;
-                                    }
-
-                                    // Convert markdown bold to HTML strong tags
-                                    const formattedText = aiText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-
-                                    typeWriter(aiResponseDiv, formattedText);
-                                    requestSuccessful = true;
-                                    console.log(`🎉 Berhasil menggunakan: ${modelName}`);
-                                    break; // Berhasil, keluar dari loop
-                                }
-                            }
-
-                            lastError = "Format respons tidak valid atau tidak ada jawaban dari AI.";
-                        } catch (modelError) {
-                            console.error(`❌ Error dengan ${modelName}:`, modelError);
-                            lastError = modelError.message;
-                            // Jika error kritis (API key, auth), langsung throw
-                            if (modelError.message.includes('Authentication') || modelError.message.includes('unauthorized') || modelError.message.includes('API key')) {
-                                throw modelError;
-                            }
-                            continue;
+                    // Fungsi bantu: ekstrak semua string di dalam objek/array secara rekursif
+                    function extractText(value) {
+                        if (typeof value === 'string') return value;
+                        if (Array.isArray(value)) {
+                            return value.map(extractText).join('');
                         }
+                        if (value && typeof value === 'object') {
+                            return Object.values(value).map(extractText).join('');
+                        }
+                        return '';
                     }
 
-                    if (!requestSuccessful) {
-                        throw new Error(lastError || 'Semua model gagal. Pastikan API Key OpenRouter valid dan memiliki kredit yang cukup.');
+                    let aiText = extractText(message.content);
+                    if (!aiText) {
+                        aiText = extractText(message);
                     }
+
+                    aiText = (aiText || '').toString().trim();
+
+                    if (!aiText) {
+                        // Jika benar-benar kosong, tampilkan pesan ramah, tanpa melempar error ke catch
+                        aiResponseDiv.innerHTML = '<p class="text-yellow-500">AI tidak mengembalikan teks jawaban. Coba ulangi pertanyaan dengan kalimat yang lebih singkat atau berbeda.</p>';
+                        return;
+                    }
+
+                    // Convert markdown bold ke <strong>
+                    const formattedText = aiText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                    typeWriter(aiResponseDiv, formattedText);
 
                 } catch (error) {
-                    console.error('Error:', error);
-                    let errorMsg = error.message;
+                    console.error('Error OpenRouter:', error);
+                    let errorMsg = error.message || 'Terjadi kesalahan tidak diketahui.';
 
-                    // Error handling khusus untuk OpenRouter
-                    if (errorMsg.includes('Authentication') || errorMsg.includes('unauthorized') || errorMsg.includes('401') || errorMsg.includes('403')) {
-                        errorMsg = 'API Key OpenRouter tidak valid atau tidak memiliki izin. Pastikan API Key Anda benar di https://openrouter.ai/keys';
-                    } else if (errorMsg.includes('quota') || errorMsg.includes('Quota') || errorMsg.includes('insufficient') || errorMsg.includes('balance')) {
-                        errorMsg = 'Kredit OpenRouter telah habis. Silakan top up kredit di https://openrouter.ai/credits';
-                    } else if (errorMsg.includes('not found') || errorMsg.includes('model_not_found') || errorMsg.includes('not available')) {
-                        errorMsg = 'Model tidak tersedia. Mencoba model lain...';
-                    } else if (errorMsg.includes('rate limit') || errorMsg.includes('429')) {
-                        errorMsg = 'Terlalu banyak request. Silakan tunggu sebentar dan coba lagi.';
-                    } else if (errorMsg.includes('CORS')) {
-                        errorMsg = 'Error CORS. Pastikan API Key sudah dikonfigurasi dengan benar.';
-                    } else if (errorMsg.includes('Semua model gagal')) {
-                        errorMsg = 'Semua model gagal. Pastikan API Key OpenRouter valid dan memiliki kredit yang cukup di https://openrouter.ai/';
+                    const lower = errorMsg.toLowerCase();
+
+                    if (lower.includes('invalid api key') || lower.includes('api key') || errorMsg.includes('401')) {
+                        errorMsg = 'API Key OpenRouter tidak valid atau tidak memiliki izin. Pastikan API Key benar dan aktif.';
+                    } else if (lower.includes('quota') || lower.includes('insufficient') || lower.includes('exceeded') || errorMsg.includes('402')) {
+                        errorMsg = 'Kuota / limit OpenRouter sudah habis atau tidak mencukupi. Coba cek kembali penggunaan kuota di dashboard OpenRouter.';
+                    } else if (lower.includes('rate limit') || errorMsg.includes('429')) {
+                        errorMsg = 'Terlalu banyak permintaan dalam waktu singkat. Silakan tunggu sebentar lalu coba lagi.';
                     }
 
-                    aiResponseDiv.innerHTML = `<p class="text-red-500">Maaf, terjadi kesalahan: ${errorMsg}</p><p class="text-sm text-gray-500 mt-2">Tips: Buka Developer Console (F12) untuk melihat detail error. Pastikan API Key OpenRouter valid di <a href="https://openrouter.ai/keys" target="_blank" class="text-blue-400 underline">openrouter.ai/keys</a></p>`;
+                    aiResponseDiv.innerHTML = `<p class="text-red-500">Maaf, terjadi kesalahan pada AI: ${errorMsg}</p><p class="text-sm text-gray-500 mt-2">Pastikan API Key OpenRouter dan nama model (${OPENROUTER_MODEL}) sudah benar.</p>`;
                 } finally {
                     btnText.classList.remove('hidden');
                     btnLoading.classList.add('hidden');
