@@ -125,28 +125,50 @@
                 height: 1rem;
             }
 
-            /* Hero */
+            /* Hero - Compact Mobile */
             .hero-section {
-                min-height: 90vh;
-                padding-top: 2rem;
-                padding-bottom: 2rem;
+                min-height: auto;
+                padding-top: 4.5rem;
+                padding-bottom: 1rem;
+            }
+
+            .hero-section>.container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
             }
 
             .hero-section h1 {
-                font-size: 1.25rem !important;
-                line-height: 1.3;
-                padding: 0 0.25rem;
+                font-size: 1.35rem !important;
+                line-height: 1.25;
+                padding: 0;
+                letter-spacing: -0.02em;
+                margin-bottom: 0.75rem !important;
             }
 
             .hero-section p {
-                font-size: 0.85rem !important;
-                padding: 0 0.25rem;
-                line-height: 1.6;
+                font-size: 0.8rem !important;
+                padding: 0 0.5rem;
+                line-height: 1.65;
+                margin-bottom: 1.25rem !important;
             }
 
             .hero-section .floating-btn {
                 font-size: 0.8rem;
                 padding: 0.6rem 1.25rem;
+            }
+
+            .computer-animation {
+                margin-top: 1rem !important;
+            }
+
+            /* Reduce visual clutter on tiny screens */
+            .tjkt-floating {
+                display: none !important;
+            }
+            .particles {
+                opacity: 0.3;
             }
 
             /* Section Titles */
@@ -366,23 +388,48 @@
 
             /* Hero */
             .hero-section {
-                min-height: 92vh;
+                min-height: auto;
+                padding-top: 4.5rem;
+                padding-bottom: 1rem;
+            }
+
+            .hero-section>.container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
             }
 
             .hero-section h1 {
-                font-size: 1.4rem !important;
-                line-height: 1.3;
-                padding: 0 0.5rem;
+                font-size: 1.5rem !important;
+                line-height: 1.25;
+                padding: 0;
+                letter-spacing: -0.02em;
+                margin-bottom: 0.75rem !important;
             }
 
             .hero-section p {
-                font-size: 0.9rem !important;
+                font-size: 0.85rem !important;
                 padding: 0 0.5rem;
+                line-height: 1.65;
+                margin-bottom: 1.25rem !important;
             }
 
             .hero-section .floating-btn {
                 font-size: 0.875rem;
                 padding: 0.7rem 1.5rem;
+            }
+
+            .computer-animation {
+                margin-top: 1.25rem !important;
+            }
+
+            /* Reduce visual clutter slightly */
+            .tjkt-floating:nth-child(n+5) {
+                display: none !important;
+            }
+            .particles {
+                opacity: 0.4;
             }
 
             /* Section Titles */
@@ -519,15 +566,22 @@
             }
 
             /* Hero */
+            .hero-section {
+                padding-top: 5rem;
+                padding-bottom: 1.5rem;
+            }
+
             .hero-section h1 {
-                font-size: 1.6rem;
-                line-height: 1.25;
-                padding: 0 0.5rem;
+                font-size: 1.75rem;
+                line-height: 1.2;
+                padding: 0;
+                letter-spacing: -0.02em;
             }
 
             .hero-section p {
                 font-size: 0.95rem;
-                padding: 0 0.5rem;
+                padding: 0 1rem;
+                line-height: 1.7;
             }
 
             .hero-section .floating-btn {
@@ -950,7 +1004,7 @@
 
         .hero-section {
             position: relative;
-            min-height: 100vh;
+            min-height: auto;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -961,6 +1015,12 @@
                 radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.1) 0%, transparent 50%),
                 radial-gradient(circle at 40% 40%, rgba(139, 92, 246, 0.08) 0%, transparent 50%);
             background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+        }
+
+        @media (min-width: 768px) {
+            .hero-section {
+                min-height: 100vh;
+            }
         }
 
         .hero-section::before {
@@ -3926,11 +3986,17 @@
         }
 
         .hero-section p {
-            font-size: 1.35rem;
+            font-size: 1rem;
             line-height: 1.7;
             max-width: 42rem;
             color: #e5e7eb;
             font-weight: 400;
+        }
+
+        @media (min-width: 768px) {
+            .hero-section p {
+                font-size: 1.25rem;
+            }
         }
 
         /* Body text styling */
@@ -5569,7 +5635,7 @@
 
     <main>
         <section id="beranda"
-            class="hero-section min-h-screen flex items-center justify-center text-white text-center relative py-12 sm:py-20">
+            class="hero-section flex items-center justify-center text-white text-center relative py-8 sm:py-12 md:py-20">
             <div class="particles" id="particles-container"></div>
 
             <!-- ✨ TJKT FLOATING ELEMENTS ✨ -->
@@ -5589,21 +5655,24 @@
             <div class="tjkt-floating data-packet" style="top: 30%; left: 60%;"></div>
 
             <div class="container mx-auto px-4 sm:px-6 relative z-10" data-scroll="scale">
-                <h1 class="font-black mb-4 leading-tight glow-text text-2xl sm:text-3xl md:text-4xl lg:text-5xl"
+                <h1 class="font-black mb-2 sm:mb-3 leading-tight glow-text text-2xl sm:text-3xl md:text-4xl lg:text-5xl"
                     data-scroll="top">
-                    Membangun Arsitek Dunia Digital Masa Depan
+                    Membangun Arsitek<br class="hidden sm:inline"> Dunia Digital Masa Depan
                 </h1>
-                <p class="mb-8 max-w-4xl mx-auto font-light text-white" data-scroll="bottom"
-                    style="text-shadow: 0 2px 8px rgba(0,0,0,0.3);">
-                    Jurusan Teknik Jaringan Komputer dan Telekomunikasi (TJKT) SMK YPT PRINGSEWU membekali Anda dengan
+
+                <p class="mb-4 sm:mb-6 max-w-2xl mx-auto font-light text-sm sm:text-base md:text-lg leading-relaxed"
+                    data-scroll="bottom" style="color: rgba(255,255,255,0.85); text-shadow: 0 1px 4px rgba(0,0,0,0.3);">
+                    Jurusan Teknik Jaringan Komputer dan Telekomunikasi (TJKT) membekali Anda dengan
                     keahlian untuk merancang, membangun, dan mengelola infrastruktur IT yang andal.
                 </p>
-                <!-- Tombol Baru Ditambahkan di Sini -->
-                <a href="#profil"
-                    class="bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 text-white font-bold py-2.5 px-6 sm:py-3 sm:px-8 rounded-full text-sm sm:text-base md:text-lg transition duration-300 btn-pulse inline-flex items-center floating-btn relative z-50"
-                    data-scroll="bounce" style="z-index: 1000; position: relative;">
-                    Jelajahi Jurusan <i class="fas fa-arrow-right ml-2"></i>
-                </a>
+
+                <div class="mb-2" data-scroll="bounce">
+                    <a href="#profil"
+                        class="bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 text-white font-bold py-2.5 px-6 sm:py-3 sm:px-8 rounded-full text-sm sm:text-base md:text-lg transition duration-300 btn-pulse inline-flex items-center floating-btn relative z-50 shadow-lg shadow-blue-500/25"
+                        style="z-index: 1000; position: relative;">
+                        Jelajahi Jurusan <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
                 <div class="computer-animation" data-scroll="flip">
                     <!-- ✨ WRAPPER BARU UNTUK LAPTOP DAN MOTHERBOARD ✨ -->
                     <div class="flex flex-row items-center justify-center gap-2 sm:gap-4 md:gap-8">
@@ -6423,11 +6492,13 @@
                         class="flex items-center gap-2 text-white/90 hover:text-white transition text-sm hover:scale-110 duration-300"
                         aria-label="Instagram">
                         <!-- Instagram Real Icon -->
-                        <div style="width:28px;height:28px;border-radius:7px;background:radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <rect x="2" y="2" width="20" height="20" rx="5" stroke="white" stroke-width="2"/>
-                                <circle cx="12" cy="12" r="5" stroke="white" stroke-width="2"/>
-                                <circle cx="17.5" cy="6.5" r="1.5" fill="white"/>
+                        <div
+                            style="width:28px;height:28px;border-radius:7px;background:radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <rect x="2" y="2" width="20" height="20" rx="5" stroke="white" stroke-width="2" />
+                                <circle cx="12" cy="12" r="5" stroke="white" stroke-width="2" />
+                                <circle cx="17.5" cy="6.5" r="1.5" fill="white" />
                             </svg>
                         </div>
                         <span>Instagram</span>
@@ -6437,17 +6508,27 @@
                         class="flex items-center gap-2 text-white/90 hover:text-white transition text-sm hover:scale-110 duration-300"
                         aria-label="TikTok">
                         <!-- TikTok Real Icon -->
-                        <div style="width:28px;height:28px;border-radius:7px;background:#010101;display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;overflow:hidden;">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <div
+                            style="width:28px;height:28px;border-radius:7px;background:#010101;display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;overflow:hidden;">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
                                 <!-- Cyan shadow layer -->
-                                <path d="M9.5 2.5H13.5V16C13.5 18.2091 11.7091 20 9.5 20C7.29086 20 5.5 18.2091 5.5 16C5.5 13.7909 7.29086 12 9.5 12V15.5C9.22386 15.5 9 15.7239 9 16C9 16.2761 9.22386 16.5 9.5 16.5C9.77614 16.5 10 16.2761 10 16V2.5" stroke="#25F4EE" stroke-width="2" style="transform:translate(-0.5px, 0.5px)"/>
-                                <path d="M13.5 6.5C15 7.5 16.5 8 18.5 8" stroke="#25F4EE" stroke-width="2" style="transform:translate(-0.5px, 0.5px)"/>
+                                <path
+                                    d="M9.5 2.5H13.5V16C13.5 18.2091 11.7091 20 9.5 20C7.29086 20 5.5 18.2091 5.5 16C5.5 13.7909 7.29086 12 9.5 12V15.5C9.22386 15.5 9 15.7239 9 16C9 16.2761 9.22386 16.5 9.5 16.5C9.77614 16.5 10 16.2761 10 16V2.5"
+                                    stroke="#25F4EE" stroke-width="2" style="transform:translate(-0.5px, 0.5px)" />
+                                <path d="M13.5 6.5C15 7.5 16.5 8 18.5 8" stroke="#25F4EE" stroke-width="2"
+                                    style="transform:translate(-0.5px, 0.5px)" />
                                 <!-- Pink shadow layer -->
-                                <path d="M9.5 2.5H13.5V16C13.5 18.2091 11.7091 20 9.5 20C7.29086 20 5.5 18.2091 5.5 16C5.5 13.7909 7.29086 12 9.5 12V15.5C9.22386 15.5 9 15.7239 9 16C9 16.2761 9.22386 16.5 9.5 16.5C9.77614 16.5 10 16.2761 10 16V2.5" stroke="#FE2C55" stroke-width="2" style="transform:translate(0.5px, -0.5px)"/>
-                                <path d="M13.5 6.5C15 7.5 16.5 8 18.5 8" stroke="#FE2C55" stroke-width="2" style="transform:translate(0.5px, -0.5px)"/>
+                                <path
+                                    d="M9.5 2.5H13.5V16C13.5 18.2091 11.7091 20 9.5 20C7.29086 20 5.5 18.2091 5.5 16C5.5 13.7909 7.29086 12 9.5 12V15.5C9.22386 15.5 9 15.7239 9 16C9 16.2761 9.22386 16.5 9.5 16.5C9.77614 16.5 10 16.2761 10 16V2.5"
+                                    stroke="#FE2C55" stroke-width="2" style="transform:translate(0.5px, -0.5px)" />
+                                <path d="M13.5 6.5C15 7.5 16.5 8 18.5 8" stroke="#FE2C55" stroke-width="2"
+                                    style="transform:translate(0.5px, -0.5px)" />
                                 <!-- White main layer -->
-                                <path d="M9.5 2.5H13.5V16C13.5 18.2091 11.7091 20 9.5 20C7.29086 20 5.5 18.2091 5.5 16C5.5 13.7909 7.29086 12 9.5 12V15.5C9.22386 15.5 9 15.7239 9 16C9 16.2761 9.22386 16.5 9.5 16.5C9.77614 16.5 10 16.2761 10 16V2.5" stroke="white" stroke-width="1.5"/>
-                                <path d="M13.5 6.5C15 7.5 16.5 8 18.5 8" stroke="white" stroke-width="1.5"/>
+                                <path
+                                    d="M9.5 2.5H13.5V16C13.5 18.2091 11.7091 20 9.5 20C7.29086 20 5.5 18.2091 5.5 16C5.5 13.7909 7.29086 12 9.5 12V15.5C9.22386 15.5 9 15.7239 9 16C9 16.2761 9.22386 16.5 9.5 16.5C9.77614 16.5 10 16.2761 10 16V2.5"
+                                    stroke="white" stroke-width="1.5" />
+                                <path d="M13.5 6.5C15 7.5 16.5 8 18.5 8" stroke="white" stroke-width="1.5" />
                             </svg>
                         </div>
                         <span>TikTok</span>
