@@ -6895,7 +6895,16 @@
                         body: JSON.stringify({ prompt: prompt })
                     });
 
-                    var data = await response.json();
+                    var rawText = await response.text();
+                    var data = {};
+                    try {
+                        data = JSON.parse(rawText);
+                    } catch (e) {
+                        if (!response.ok) {
+                            throw new Error('Server mengembalikan halaman error (HTTP ' + response.status + '). Pastikan API route /api/ask-ai ada dan ter-deploy di Vercel.');
+                        }
+                        throw new Error('Respons server tidak valid.');
+                    }
 
                     if (!response.ok) {
                         var errMsg = data.error || data.message || 'HTTP ' + response.status;
@@ -6919,9 +6928,13 @@
                     var errorMsg = error.message || 'Terjadi kesalahan tidak diketahui.';
                     var lower = errorMsg.toLowerCase();
                     if (lower.indexOf('fetch') !== -1 || lower.indexOf('network') !== -1) {
-                        errorMsg = 'Gagal terhubung ke API. ' +
-                            'Jika Anda test lokal (Live Server/localhost), isi variabel API_BASE dengan URL Vercel (contoh: API_BASE = "https://nama-project.vercel.app"). ' +
-                            'Jika sudah deploy di Vercel, pastikan folder api/ ikut ter-deploy dan OPENROUTER_API_KEY sudah diatur.';
+                        errorMsg = 'Gagal terhubung ke API. Pastikan folder api/ ikut ter-deploy di Vercel.';
+                    } else if (lower.indexOf('unexpected token') !== -1 || lower.indexOf('is not valid json') !== -1) {
+                        errorMsg = 'Server mengembalikan halaman HTML, bukan JSON. Pastikan API route /api/ask-ai ada di Vercel dan folder api/ ikut ter-deploy.';
+                    } else if (lower.indexOf('server mengembalikan') !== -1 || lower.indexOf('respons server') !== -1) {
+                        errorMsg = errorMsg;
+                    } else if (lower.indexOf('api') !== -1 && lower.indexOf('route') !== -1) {
+                        errorMsg = errorMsg;
                     }
                     aiResponseDiv.innerHTML = '<p class="text-red-500">Maaf, terjadi kesalahan: ' + errorMsg + '</p>';
                 } finally {
