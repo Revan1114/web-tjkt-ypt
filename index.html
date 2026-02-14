@@ -6830,9 +6830,9 @@
             }
             createParticles();
 
-            // --- BAGIAN 2: LOGIKA AI (via Vercel API - API Key di Vercel Env) ---
-            // Untuk TEST LOKAL: isi URL Vercel Anda (contoh: 'https://nama-project.vercel.app')
-            var API_BASE = ''; // Kosong = pakai origin saat ini. Jika test lokal, isi URL deploy Vercel.
+            // --- BAGIAN 2: LOGIKA AI ---
+            // ISI API KEY OPENROUTER ANDA DI BAWAH (dapatkan gratis di https://openrouter.ai/keys)
+            var OPENROUTER_API_KEY = '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'; 
             const askAiBtn = document.getElementById('ask-ai-btn');
             const aiPromptInput = document.getElementById('ai-prompt');
             const aiResponseDiv = document.getElementById('ai-response');
@@ -6888,33 +6888,29 @@
                 aiResponseDiv.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>AI sedang memproses jawaban...';
 
                 try {
-                    var apiUrl = (API_BASE || window.location.origin) + '/api/ask-ai';
-                    var response = await fetch(apiUrl, {
+                    if (!OPENROUTER_API_KEY) {
+                        throw new Error('ISI OPENROUTER_API_KEY di kode (baris ~6836). Dapatkan gratis di https://openrouter.ai/keys');
+                    }
+                    var sysPrompt = 'Anda adalah asisten AI untuk website jurusan TJKT. Jawab ringkas, gunakan daftar (-) bila perlu, **tebalkan** istilah kunci. Akhiri dengan "Terimakasih telah bertanya 😊😍".';
+                    var resp = await fetch('https://openrouter.ai/api/v1/chat/completions', {
                         method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ prompt: prompt })
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': 'Bearer ' + OPENROUTER_API_KEY,
+                            'HTTP-Referer': window.location.origin,
+                            'X-Title': 'AI Konselor TJKT'
+                        },
+                        body: JSON.stringify({
+                            model: 'stepfun/step-3.5-flash:free',
+                            messages: [{ role: 'system', content: sysPrompt }, { role: 'user', content: prompt }],
+                            temperature: 0.7,
+                            max_tokens: 512
+                        })
                     });
-
-                    var rawText = await response.text();
-                    var data = {};
-                    try {
-                        data = JSON.parse(rawText);
-                    } catch (e) {
-                        if (!response.ok) {
-                            throw new Error('Server mengembalikan halaman error (HTTP ' + response.status + '). Pastikan API route /api/ask-ai ada dan ter-deploy di Vercel.');
-                        }
-                        throw new Error('Respons server tidak valid.');
-                    }
-
-                    if (!response.ok) {
-                        var errMsg = data.error || data.message || 'HTTP ' + response.status;
-                        if (errMsg.indexOf('API Key') !== -1 || errMsg.indexOf('belum diatur') !== -1) {
-                            errMsg = 'API Key OpenRouter belum diatur. Tambahkan OPENROUTER_API_KEY di Vercel Environment Variables.';
-                        }
-                        throw new Error(errMsg);
-                    }
-
-                    var aiText = (data.text || '').trim();
+                    var data = await resp.json();
+                    if (!resp.ok) throw new Error(data.error?.message || data.message || 'HTTP ' + resp.status);
+                    var msg = data.choices?.[0]?.message || {};
+                    var aiText = (typeof msg.content === 'string' ? msg.content : '').trim();
                     if (!aiText) {
                         aiResponseDiv.innerHTML = '<p class="text-yellow-500">AI tidak mengembalikan teks jawaban. Coba ulangi pertanyaan.</p>';
                         return;
@@ -6926,16 +6922,6 @@
                 } catch (error) {
                     console.error('Error AI:', error);
                     var errorMsg = error.message || 'Terjadi kesalahan tidak diketahui.';
-                    var lower = errorMsg.toLowerCase();
-                    if (lower.indexOf('fetch') !== -1 || lower.indexOf('network') !== -1) {
-                        errorMsg = 'Gagal terhubung ke API. Pastikan folder api/ ikut ter-deploy di Vercel.';
-                    } else if (lower.indexOf('unexpected token') !== -1 || lower.indexOf('is not valid json') !== -1) {
-                        errorMsg = 'Server mengembalikan halaman HTML, bukan JSON. Pastikan API route /api/ask-ai ada di Vercel dan folder api/ ikut ter-deploy.';
-                    } else if (lower.indexOf('server mengembalikan') !== -1 || lower.indexOf('respons server') !== -1) {
-                        errorMsg = errorMsg;
-                    } else if (lower.indexOf('api') !== -1 && lower.indexOf('route') !== -1) {
-                        errorMsg = errorMsg;
-                    }
                     aiResponseDiv.innerHTML = '<p class="text-red-500">Maaf, terjadi kesalahan: ' + errorMsg + '</p>';
                 } finally {
                     if (btnText) btnText.classList.remove('hidden');
