@@ -6831,6 +6831,8 @@
             createParticles();
 
             // --- BAGIAN 2: LOGIKA AI (via Vercel API - API Key di Vercel Env) ---
+            // Untuk TEST LOKAL: isi URL Vercel Anda (contoh: 'https://nama-project.vercel.app')
+            var API_BASE = ''; // Kosong = pakai origin saat ini. Jika test lokal, isi URL deploy Vercel.
             const askAiBtn = document.getElementById('ask-ai-btn');
             const aiPromptInput = document.getElementById('ai-prompt');
             const aiResponseDiv = document.getElementById('ai-response');
@@ -6886,7 +6888,8 @@
                 aiResponseDiv.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>AI sedang memproses jawaban...';
 
                 try {
-                    var response = await fetch('/api/ask-ai', {
+                    var apiUrl = (API_BASE || window.location.origin) + '/api/ask-ai';
+                    var response = await fetch(apiUrl, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ prompt: prompt })
@@ -6916,7 +6919,9 @@
                     var errorMsg = error.message || 'Terjadi kesalahan tidak diketahui.';
                     var lower = errorMsg.toLowerCase();
                     if (lower.indexOf('fetch') !== -1 || lower.indexOf('network') !== -1) {
-                        errorMsg = 'Gagal terhubung ke server. Pastikan website di-deploy di Vercel (API route perlu Vercel).';
+                        errorMsg = 'Gagal terhubung ke API. ' +
+                            'Jika Anda test lokal (Live Server/localhost), isi variabel API_BASE dengan URL Vercel (contoh: API_BASE = "https://nama-project.vercel.app"). ' +
+                            'Jika sudah deploy di Vercel, pastikan folder api/ ikut ter-deploy dan OPENROUTER_API_KEY sudah diatur.';
                     }
                     aiResponseDiv.innerHTML = '<p class="text-red-500">Maaf, terjadi kesalahan: ' + errorMsg + '</p>';
                 } finally {
