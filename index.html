@@ -4894,6 +4894,17 @@
             opacity: 1;
         }
 
+        /* Pastikan input AI selalu bisa diklik & diketik */
+        .ai-input-wrapper,
+        .ai-input-container,
+        #ai-prompt {
+            pointer-events: auto !important;
+        }
+        #ai-prompt {
+            position: relative;
+            z-index: 2;
+        }
+
         /* ✨ TJKT FLOATING ELEMENTS ✨ */
         .tjkt-floating {
             position: absolute;
@@ -5784,9 +5795,9 @@
                 </div>
 
                 <!-- ✨ AI CONTAINER BARU ✨ -->
-                <div class="max-w-5xl mx-auto" data-scroll="bottom">
-                    <!-- AI Response Area -->
-                    <div
+                <div class="max-w-5xl mx-auto">
+                    <!-- AI Response Area (animasi scroll) -->
+                    <div data-scroll="bottom"
                         class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg rounded-2xl p-4 sm:p-6 md:p-8 mb-6 sm:mb-8 border border-white/20 dark:border-gray-700/50 shadow-2xl">
                         <div class="flex flex-wrap items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
                             <div
@@ -5822,14 +5833,14 @@
                         </div>
                     </div>
 
-                    <!-- Input Area -->
+                    <!-- Input Area (selalu tampil & bisa diklik, tidak pakai data-scroll) -->
                     <div
-                        class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg rounded-2xl p-4 sm:p-6 border border-white/20 dark:border-gray-700/50 shadow-xl">
+                        class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg rounded-2xl p-4 sm:p-6 border border-white/20 dark:border-gray-700/50 shadow-xl ai-input-wrapper">
                         <div class="flex flex-col sm:flex-row gap-4 items-stretch sm:items-end">
-                            <div class="flex-1">
-                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Tanyakan
+                            <div class="flex-1 ai-input-container">
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2" for="ai-prompt">Tanyakan
                                     sesuatu tentang TJKT:</label>
-                                <input type="text" id="ai-prompt"
+                                <input type="text" id="ai-prompt" name="ai-prompt" autocomplete="off"
                                     class="w-full px-4 py-3 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 text-gray-800 dark:text-gray-200 placeholder-gray-500"
                                     placeholder="Contoh: Apa saja peluang kerja lulusan TJKT?">
                             </div>
@@ -6819,17 +6830,12 @@
             }
             createParticles();
 
-            // --- BAGIAN 2: LOGIKA AI (OpenRouter) ---
-            // TODO: Ganti dengan API Key OpenRouter milik Anda sendiri.
-            // Jangan pernah commit / bagikan API key ke publik (GitHub, dll).
-            const OPENROUTER_API_KEY = process.env.OPENROUTER_API_KEY;
-            // Pakai model gratis dari OpenRouter (bisa diganti sesuai kebutuhan).
-            const OPENROUTER_MODEL = "stepfun/step-3.5-flash:free";
+            // --- BAGIAN 2: LOGIKA AI (via Vercel API - API Key di Vercel Env) ---
             const askAiBtn = document.getElementById('ask-ai-btn');
             const aiPromptInput = document.getElementById('ai-prompt');
             const aiResponseDiv = document.getElementById('ai-response');
-            const btnText = askAiBtn.querySelector('.btn-text');
-            const btnLoading = askAiBtn.querySelector('.btn-loading');
+            const btnText = askAiBtn ? askAiBtn.querySelector('.btn-text') : null;
+            const btnLoading = askAiBtn ? askAiBtn.querySelector('.btn-loading') : null;
 
             // ✨ FUNGSI TYPEWRITER DIPERBARUI UNTUK MENDUKUNG HTML ✨
             function typeWriter(element, text, speed = 15) {
@@ -6863,144 +6869,76 @@
                 }, speed);
             }
 
-            async function askAI() {
-                const prompt = aiPromptInput.value.trim();
+            async function askAI(questionFromButton) {
+                var prompt = (questionFromButton && String(questionFromButton).trim()) || (aiPromptInput && aiPromptInput.value.trim());
+                if (!aiResponseDiv) return;
                 if (!prompt) {
                     aiResponseDiv.innerText = 'Mohon ketik pertanyaan terlebih dahulu.';
                     return;
                 }
-                if (!OPENROUTER_API_KEY || OPENROUTER_API_KEY === "ISI_API_KEY_OPENROUTER_ANDA_DI_SINI") {
-                    aiResponseDiv.innerText = 'API Key OpenRouter belum dimasukkan. Silakan edit kode dan masukkan API Key OpenRouter Anda (jangan dibagikan ke orang lain).';
-                    return;
-                }
 
-                btnText.classList.add('hidden');
-                btnLoading.classList.remove('hidden');
-                askAiBtn.disabled = true;
-                askAiBtn.classList.add('opacity-70', 'cursor-not-allowed');
+                if (btnText) btnText.classList.add('hidden');
+                if (btnLoading) btnLoading.classList.remove('hidden');
+                if (askAiBtn) {
+                    askAiBtn.disabled = true;
+                    askAiBtn.classList.add('opacity-70', 'cursor-not-allowed');
+                }
                 aiResponseDiv.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>AI sedang memproses jawaban...';
 
                 try {
-                    // ✨ PROMPT DIPERBARUI UNTUK JAWABAN TERSTRUKTUR & SINGKAT ✨
-                    const systemPrompt = `Anda adalah asisten AI yang ramah untuk website jurusan TJKT. Jawab pertanyaan dengan ringkas namun informatif, langsung ke intinya. Jika jawabannya berupa daftar, gunakan format daftar (list) dengan tanda hubung (-). Penting: **Tebalkan** nama orang, benda, atau istilah kunci yang menjadi inti jawaban menggunakan format Markdown (contoh: **Teks Tebal**). Di akhir seluruh jawaban, selalu tambahkan baris baru dengan tulisan "Terimakasih telah bertanya 😊😍".`;
-
-                    // Susun pesan untuk OpenRouter (format chat-completions)
-                    const messages = [
-                        {
-                            role: 'system',
-                            content: systemPrompt
-                        },
-                        {
-                            role: 'user',
-                            content: prompt
-                        }
-                    ];
-
-                    // Endpoint REST OpenRouter
-                    const apiUrl = 'https://openrouter.ai/api/v1/chat/completions';
-
-                    const payload = {
-                        model: OPENROUTER_MODEL,
-                        messages,
-                        temperature: 0.7,
-                        max_tokens: 512
-                    };
-
-                    const response = await fetch(apiUrl, {
+                    var response = await fetch('/api/ask-ai', {
                         method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
-                            // Header berikut ini direkomendasikan oleh OpenRouter:
-                            'HTTP-Referer': window.location.origin || 'http://localhost',
-                            'X-Title': 'AI Konselor TJKT'
-                        },
-                        body: JSON.stringify(payload)
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ prompt: prompt })
                     });
 
-                    const data = await response.json();
+                    var data = await response.json();
 
                     if (!response.ok) {
-                        console.error('❌ OpenRouter API error:', data);
-                        let rawMsg = data.error?.message || data.message || `HTTP ${response.status}`;
-                        throw new Error(rawMsg);
-                    }
-
-                    // Ambil teks dari choices (format OpenRouter)
-                    const choices = data.choices || [];
-                    if (!choices.length) {
-                        throw new Error('AI tidak memberikan jawaban.');
-                    }
-
-                    const firstChoice = choices[0] || {};
-                    const message = firstChoice.message || firstChoice || {};
-
-                    // Fungsi bantu: ekstrak semua string di dalam objek/array secara rekursif
-                    function extractText(value) {
-                        if (typeof value === 'string') return value;
-                        if (Array.isArray(value)) {
-                            return value.map(extractText).join('');
+                        var errMsg = data.error || data.message || 'HTTP ' + response.status;
+                        if (errMsg.indexOf('API Key') !== -1 || errMsg.indexOf('belum diatur') !== -1) {
+                            errMsg = 'API Key OpenRouter belum diatur. Tambahkan OPENROUTER_API_KEY di Vercel Environment Variables.';
                         }
-                        if (value && typeof value === 'object') {
-                            return Object.values(value).map(extractText).join('');
-                        }
-                        return '';
+                        throw new Error(errMsg);
                     }
 
-                    let aiText = extractText(message.content);
+                    var aiText = (data.text || '').trim();
                     if (!aiText) {
-                        aiText = extractText(message);
-                    }
-
-                    aiText = (aiText || '').toString().trim();
-
-                    if (!aiText) {
-                        // Jika benar-benar kosong, tampilkan pesan ramah, tanpa melempar error ke catch
-                        aiResponseDiv.innerHTML = '<p class="text-yellow-500">AI tidak mengembalikan teks jawaban. Coba ulangi pertanyaan dengan kalimat yang lebih singkat atau berbeda.</p>';
+                        aiResponseDiv.innerHTML = '<p class="text-yellow-500">AI tidak mengembalikan teks jawaban. Coba ulangi pertanyaan.</p>';
                         return;
                     }
 
-                    // Convert markdown bold ke <strong>
-                    const formattedText = aiText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+                    var formattedText = aiText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
                     typeWriter(aiResponseDiv, formattedText);
 
                 } catch (error) {
-                    console.error('Error OpenRouter:', error);
-                    let errorMsg = error.message || 'Terjadi kesalahan tidak diketahui.';
-
-                    const lower = errorMsg.toLowerCase();
-
-                    if (lower.includes('invalid api key') || lower.includes('api key') || errorMsg.includes('401')) {
-                        errorMsg = 'API Key OpenRouter tidak valid atau tidak memiliki izin. Pastikan API Key benar dan aktif.';
-                    } else if (lower.includes('quota') || lower.includes('insufficient') || lower.includes('exceeded') || errorMsg.includes('402')) {
-                        errorMsg = 'Kuota / limit OpenRouter sudah habis atau tidak mencukupi. Coba cek kembali penggunaan kuota di dashboard OpenRouter.';
-                    } else if (lower.includes('rate limit') || errorMsg.includes('429')) {
-                        errorMsg = 'Terlalu banyak permintaan dalam waktu singkat. Silakan tunggu sebentar lalu coba lagi.';
+                    console.error('Error AI:', error);
+                    var errorMsg = error.message || 'Terjadi kesalahan tidak diketahui.';
+                    var lower = errorMsg.toLowerCase();
+                    if (lower.indexOf('fetch') !== -1 || lower.indexOf('network') !== -1) {
+                        errorMsg = 'Gagal terhubung ke server. Pastikan website di-deploy di Vercel (API route perlu Vercel).';
                     }
-
-                    aiResponseDiv.innerHTML = `<p class="text-red-500">Maaf, terjadi kesalahan pada AI: ${errorMsg}</p><p class="text-sm text-gray-500 mt-2">Pastikan API Key OpenRouter dan nama model (${OPENROUTER_MODEL}) sudah benar.</p>`;
+                    aiResponseDiv.innerHTML = '<p class="text-red-500">Maaf, terjadi kesalahan: ' + errorMsg + '</p>';
                 } finally {
-                    btnText.classList.remove('hidden');
-                    btnLoading.classList.add('hidden');
-                    askAiBtn.disabled = false;
-                    askAiBtn.classList.remove('opacity-70', 'cursor-not-allowed');
-                    aiPromptInput.value = '';
+                    if (btnText) btnText.classList.remove('hidden');
+                    if (btnLoading) btnLoading.classList.add('hidden');
+                    if (askAiBtn) {
+                        askAiBtn.disabled = false;
+                        askAiBtn.classList.remove('opacity-70', 'cursor-not-allowed');
+                    }
+                    if (!questionFromButton && aiPromptInput) aiPromptInput.value = '';
                 }
             }
-            askAiBtn.addEventListener('click', askAI);
-            aiPromptInput.addEventListener('keypress', function (event) {
-                if (event.key === 'Enter') {
-                    event.preventDefault();
-                    askAI();
-                }
+            if (askAiBtn) askAiBtn.addEventListener('click', function () { askAI(); });
+            if (aiPromptInput) aiPromptInput.addEventListener('keypress', function (e) {
+                if (e.key === 'Enter') { e.preventDefault(); askAI(); }
             });
 
-            // Klik Pertanyaan Populer => otomatis tanya ke AI
             document.querySelectorAll('.quick-question').forEach(function (btn) {
                 btn.addEventListener('click', function () {
-                    const q = this.getAttribute('data-question') || this.textContent.trim();
-                    aiPromptInput.value = q;
-                    askAI();
+                    var q = this.getAttribute('data-question') || this.textContent.trim();
+                    if (aiPromptInput) aiPromptInput.value = q;
+                    askAI(q);
                 });
             });
 
