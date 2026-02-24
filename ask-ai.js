@@ -1,5 +1,5 @@
 // Vercel Serverless Function - Node.js
-// API Key: OPENROUTER_API_KEY di Vercel Environment Variables
+// API Key: GEMINI_API_KEY di Vercel Environment Variables
 module.exports = async (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
@@ -9,9 +9,9 @@ module.exports = async (req, res) => {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const apiKey = process.env.OPENROUTER_API_KEY;
+  const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) {
-    return res.status(500).json({ error: 'OPENROUTER_API_KEY belum diatur di Vercel.' });
+    return res.status(500).json({ error: 'GEMINI_API_KEY belum diatur di Vercel.' });
   }
 
   try {
@@ -23,22 +23,18 @@ module.exports = async (req, res) => {
 
     const systemPrompt = `Anda adalah asisten AI untuk website jurusan TJKT. Jawab ringkas, gunakan daftar (-) bila perlu, **tebalkan** istilah kunci. Akhiri dengan "Terimakasih telah bertanya 😊😍".`;
 
-    const resp = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+    const resp = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiKey}`,
-        'HTTP-Referer': req.headers.origin || 'https://vercel.app',
-        'X-Title': 'AI Konselor TJKT',
       },
       body: JSON.stringify({
-        model: 'stepfun/step-3.5-flash:free',
-        messages: [
-          { role: 'system', content: systemPrompt },
-          { role: 'user', content: prompt.trim() },
+        system_instruction: {
+          parts: [{ text: systemPrompt }]
+        },
+        contents: [
+          { role: 'user', parts: [{ text: prompt.trim() }] },
         ],
-        temperature: 0.7,
-        max_tokens: 512,
       }),
     });
 
@@ -47,19 +43,12 @@ module.exports = async (req, res) => {
       return res.status(resp.status).json({ error: data.error?.message || `HTTP ${resp.status}` });
     }
 
-    const choices = data.choices || [];
-    if (!choices.length) {
+    const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+    if (!text) {
       return res.status(500).json({ error: 'AI tidak memberikan jawaban.' });
     }
 
-    const msg = choices[0]?.message || choices[0] || {};
-    let text = typeof msg.content === 'string' ? msg.content : '';
-    if (!text && msg.content) {
-      const parts = Array.isArray(msg.content) ? msg.content : [msg.content];
-      text = parts.map((p) => (typeof p === 'string' ? p : p?.text || '')).join('');
-    }
-
-    return res.status(200).json({ text: (text || '').trim() });
+    return res.status(200).json({ text: text.trim() });
   } catch (err) {
     console.error('API ask-ai:', err);
     return res.status(500).json({ error: err.message || 'Terjadi kesalahan.' });

@@ -4900,6 +4900,7 @@
         #ai-prompt {
             pointer-events: auto !important;
         }
+
         #ai-prompt {
             position: relative;
             z-index: 2;
@@ -5676,10 +5677,11 @@
 
                 <p class="mt-8 sm:mt-10 md:mt-12 mb-4 sm:mb-5 md:mb-6 max-w-2xl mx-auto font-light text-sm sm:text-base md:text-lg leading-relaxed"
                     data-scroll="bottom" style="color: rgba(255,255,255,0.85); text-shadow: 0 1px 4px rgba(0,0,0,0.3);">
-                    Jurusan Teknik Jaringan Komputer dan Telekomunikasi (TJKT) SMK YPT PRINGSEWU membekali Anda dengan keahlian untuk merancang, membangun, dan mengelola infrastruktur IT yang andal.
+                    Jurusan Teknik Jaringan Komputer dan Telekomunikasi (TJKT) SMK YPT PRINGSEWU membekali Anda dengan
+                    keahlian untuk merancang, membangun, dan mengelola infrastruktur IT yang andal.
 
-                    
-                    
+
+
                 </p>
 
                 <div class="mt-6 sm:mt-8 md:mt-10 mb-4 sm:mb-5 md:mb-6" data-scroll="bounce">
@@ -5827,7 +5829,7 @@
                                 </div>
                                 <div class="flex-1">
                                     <span class="text-gray-500 dark:text-gray-400">"Saya siap membantu."
-                                       </span>
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -5838,7 +5840,8 @@
                         class="bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg rounded-2xl p-4 sm:p-6 border border-white/20 dark:border-gray-700/50 shadow-xl ai-input-wrapper">
                         <div class="flex flex-col sm:flex-row gap-4 items-stretch sm:items-end">
                             <div class="flex-1 ai-input-container">
-                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2" for="ai-prompt">Tanyakan
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                                    for="ai-prompt">Tanyakan
                                     sesuatu tentang TJKT:</label>
                                 <input type="text" id="ai-prompt" name="ai-prompt" autocomplete="off"
                                     class="w-full px-4 py-3 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 text-gray-800 dark:text-gray-200 placeholder-gray-500"
@@ -6307,7 +6310,8 @@
                             <div class="speech-bubble point-left">
                                 <p class="text-gray-700 dark:text-gray-300 text-base typing-target">"Awal nya aku kira
                                     TJKT hanya tentang jaringan, ternyata setelah belajar lebih mendalam tentang jurusan
-                                    ini, jurusan ini sangat bagus untuk masa depan. dengan mengetahui ilmu-ilmu komputer,
+                                    ini, jurusan ini sangat bagus untuk masa depan. dengan mengetahui ilmu-ilmu
+                                    komputer,
                                     jaringan, dan pemerograman.
                                     "
                                 </p>
@@ -6440,7 +6444,8 @@
                                         </div>
                                         <div>
                                             <div class="flex items-center gap-2">
-                                                <h3 class="text-2xl font-bold text-gray-800 dark:text-gray-200">Mimin Tjkt</h3>
+                                                <h3 class="text-2xl font-bold text-gray-800 dark:text-gray-200">Mimin
+                                                    Tjkt</h3>
                                                 <span
                                                     class="inline-flex items-center gap-2 text-green-600 dark:text-green-400">
                                                     <span class="online-dot"></span>
@@ -6831,8 +6836,8 @@
             createParticles();
 
             // --- BAGIAN 2: LOGIKA AI ---
-            // ISI API KEY OPENROUTER ANDA DI BAWAH (dapatkan gratis di https://openrouter.ai/keys)
-            var OPENROUTER_API_KEY = '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'; 
+            // ISI API KEY GOOGLE GEMINI ANDA DI BAWAH (dapatkan di Google AI Studio: https://aistudio.google.com/app/apikey)
+            var GEMINI_API_KEY = 'AIzaSyBR9Wh3QZKjJWmzu8tkUK6n9rs-uYpkADE';
             const askAiBtn = document.getElementById('ask-ai-btn');
             const aiPromptInput = document.getElementById('ai-prompt');
             const aiResponseDiv = document.getElementById('ai-response');
@@ -6888,29 +6893,28 @@
                 aiResponseDiv.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>AI sedang memproses jawaban...';
 
                 try {
-                    if (!OPENROUTER_API_KEY) {
-                        throw new Error('ISI OPENROUTER_API_KEY di kode (baris ~6836). Dapatkan gratis di https://openrouter.ai/keys');
+                    if (!GEMINI_API_KEY) {
+                        throw new Error('ISI GEMINI_API_KEY di kode (baris ~6835). Dapatkan di https://aistudio.google.com/app/apikey');
                     }
                     var sysPrompt = 'Anda adalah asisten AI untuk website jurusan TJKT. Jawab ringkas, gunakan daftar (-) bila perlu, **tebalkan** istilah kunci. Akhiri dengan "Terimakasih telah bertanya 😊😍".';
-                    var resp = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+                    var resp = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
                         method: 'POST',
                         headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': 'Bearer ' + OPENROUTER_API_KEY,
-                            'HTTP-Referer': window.location.origin,
-                            'X-Title': 'AI Konselor TJKT'
+                            'Content-Type': 'application/json'
                         },
                         body: JSON.stringify({
-                            model: 'stepfun/step-3.5-flash:free',
-                            messages: [{ role: 'system', content: sysPrompt }, { role: 'user', content: prompt }],
-                            temperature: 0.7,
-                            max_tokens: 512
+                            system_instruction: {
+                                parts: [{ text: sysPrompt }]
+                            },
+                            contents: [
+                                { role: 'user', parts: [{ text: prompt }] }
+                            ]
                         })
                     });
                     var data = await resp.json();
                     if (!resp.ok) throw new Error(data.error?.message || data.message || 'HTTP ' + resp.status);
-                    var msg = data.choices?.[0]?.message || {};
-                    var aiText = (typeof msg.content === 'string' ? msg.content : '').trim();
+
+                    var aiText = data.candidates?.[0]?.content?.parts?.[0]?.text;
                     if (!aiText) {
                         aiResponseDiv.innerHTML = '<p class="text-yellow-500">AI tidak mengembalikan teks jawaban. Coba ulangi pertanyaan.</p>';
                         return;
