@@ -4385,6 +4385,31 @@
         }
 
         /* --- ✨ GAYA BARU UNTUK AI TJKT 1 (v2) ✨ --- */
+        /* Beranda: full layar, no gap */
+        #beranda {
+            overflow: hidden;
+            margin-bottom: 0 !important;
+            padding-bottom: 0 !important;
+            min-height: 100vh !important;
+            min-height: 100dvh !important;
+        }
+
+        /* Tombol Jelajahi Jurusan di beranda (tengah, sejajar tulisan TJKT) */
+        .btn-jelajahi-jurusan {
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.5), 0 20px 50px rgba(0, 0, 0, 0.3);
+            animation: btn-jelajahi-pulse 2.5s ease-in-out infinite;
+        }
+
+        .btn-jelajahi-jurusan:hover {
+            animation: none;
+            box-shadow: 0 0 40px rgba(59, 130, 246, 0.6), 0 25px 60px rgba(0, 0, 0, 0.35);
+        }
+
+        @keyframes btn-jelajahi-pulse {
+            0%, 100% { box-shadow: 0 0 30px rgba(59, 130, 246, 0.5), 0 20px 50px rgba(0, 0, 0, 0.3); }
+            50% { box-shadow: 0 0 45px rgba(59, 130, 246, 0.65), 0 22px 55px rgba(0, 0, 0, 0.35); }
+        }
+
         #ai-konselor {
             position: relative;
             overflow: hidden;
@@ -5649,104 +5674,15 @@
     </div>
 
     <main>
-        <section id="beranda"
-            class="hero-section flex items-start justify-center text-white text-center relative pt-8 sm:pt-12 md:pt-18 pb-10 sm:pb-14 md:pb-20">
-            <div class="particles" id="particles-container" style="pointer-events: none;"></div>
-
-            <!-- ✨ TJKT FLOATING ELEMENTS ✨ -->
-            <div class="tjkt-floating network-node" style="top: 15%; left: 10%;"></div>
-            <div class="tjkt-floating circuit-line" style="top: 25%; right: 15%;"></div>
-            <div class="tjkt-floating data-packet" style="top: 55%; left: 20%;"></div>
-            <div class="tjkt-floating network-node" style="top: 65%; right: 25%;"></div>
-            <div class="tjkt-floating circuit-line" style="top: 35%; left: 75%;"></div>
-            <div class="tjkt-floating data-packet" style="top: 75%; right: 65%;"></div>
-
-            <!-- ✨ NEW ADVANCED ELEMENTS ✨ -->
-            <div class="tjkt-floating tech-orb" style="top: 45%; left: 5%;"></div>
-            <div class="tjkt-floating energy-wave" style="top: 85%; left: 50%; transform: translateX(-50%);"></div>
-            <div class="tjkt-floating tech-orb" style="top: 10%; right: 10%;"></div>
-            <div class="tjkt-floating network-node" style="top: 90%; left: 40%;"></div>
-            <div class="tjkt-floating circuit-line" style="top: 50%; right: 5%;"></div>
-            <div class="tjkt-floating data-packet" style="top: 30%; left: 60%;"></div>
-
-            <div class="container mx-auto px-4 sm:px-6 relative z-10" data-scroll="scale">
-                <h1 class="font-black mb-10 sm:mb-14 md:mb-20 leading-tight glow-text text-2xl sm:text-3xl md:text-4xl lg:text-5xl"
-                    data-scroll="top">
-                    Membangun Arsitek<br class="hidden sm:inline"> Dunia Digital Masa Depan
-                </h1>
-
-                <p class="mt-8 sm:mt-10 md:mt-12 mb-4 sm:mb-5 md:mb-6 max-w-2xl mx-auto font-light text-sm sm:text-base md:text-lg leading-relaxed"
-                    data-scroll="bottom" style="color: rgba(255,255,255,0.85); text-shadow: 0 1px 4px rgba(0,0,0,0.3);">
-                    Jurusan Teknik Jaringan Komputer dan Telekomunikasi (TJKT) SMK YPT PRINGSEWU membekali Anda dengan
-                    keahlian untuk merancang, membangun, dan mengelola infrastruktur IT yang andal.
-
-
-
-                </p>
-
-                <div class="mt-6 sm:mt-8 md:mt-10 mb-4 sm:mb-5 md:mb-6" data-scroll="bounce">
-                    <a href="#profil" id="btn-jelajahi"
-                        class="bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-700 hover:to-cyan-600 text-white font-bold py-2.5 px-6 sm:py-3 sm:px-8 rounded-full text-sm sm:text-base md:text-lg transition duration-300 btn-pulse inline-flex items-center floating-btn shadow-lg shadow-blue-500/25"
-                        style="position: relative; z-index: 1000;">
-                        Jelajahi Jurusan <i class="fas fa-arrow-right ml-2"></i>
+        <section id="beranda" class="relative w-full min-h-screen h-screen bg-black m-0 p-0 block overflow-hidden">
+            <!-- Canvas Image Sequence - full layar, no gap -->
+            <canvas id="hero-sequence" class="absolute inset-0 w-full h-full"></canvas>
+            <!-- Overlay: tombol di tengah bawah (di bawah tulisan TJKT, tidak menimpa) → ke section Profil -->
+            <div class="absolute inset-0 flex flex-col items-center justify-center z-10 px-4 pointer-events-none">
+                <div class="pointer-events-auto mt-[35vh]">
+                    <a href="#profil" id="btn-jelajahi" class="btn-jelajahi-jurusan inline-flex items-center justify-center px-6 py-3 text-sm sm:text-base rounded-xl font-semibold text-white bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 hover:from-blue-500 hover:via-cyan-500 hover:to-blue-600 border border-white/25 shadow-xl hover:shadow-blue-500/35 transition-all duration-300 hover:scale-105 active:scale-100">
+                        Jelajahi Jurusan
                     </a>
-                </div>
-                <div class="computer-animation mt-6 sm:mt-8 md:mt-10" data-scroll="flip">
-                    <!-- ✨ WRAPPER BARU UNTUK LAPTOP DAN MOTHERBOARD ✨ -->
-                    <div class="flex flex-row items-center justify-center gap-2 sm:gap-4 md:gap-8">
-                        <!-- ✨ MOTHERBOARD (SEKARANG MUNCUL DI SEMUA UKURAN) ✨ -->
-                        <div class="motherboard">
-                            <div class="circuit-line"></div>
-                            <div class="circuit-line"></div>
-                            <div class="circuit-line"></div>
-                            <div class="circuit-line"></div>
-                            <div class="circuit-line"></div>
-                            <div class="chip cpu"></div>
-                            <div class="chip"></div>
-                            <div class="chip"></div>
-                            <div class="chip"></div>
-                            <div class="chip"></div>
-                        </div>
-                        <!-- Laptop yang sudah ada -->
-                        <div class="laptop">
-                            <div class="laptop-screen">
-                                <div class="screen-glow"></div>
-                                <div class="screen-content">
-                                    <span class="line"><span class="comment">// TJKT System v2.0 - Advanced Network
-                                            Infrastructure</span></span>
-                                    <span class="line"><span class="comment">// Initializing core
-                                            components...</span></span>
-                                    <span class="line"><span class="variable">const</span> <span
-                                            class="string">jurusan</span> = <span class="string">'Teknik Jaringan
-                                            Komputer & Telekomunikasi'</span>;</span>
-                                    <span class="line"><span class="variable">const</span> <span
-                                            class="string">coreSkills</span> = [<span class="string">'Network
-                                            Engineering'</span>, <span class="string">'Cybersecurity'</span>, <span
-                                            class="string">'Server Administration'</span>];</span>
-                                    <span class="line"><span class="variable">const</span> <span
-                                            class="string">certifications</span> = [<span class="string">'CCNA'</span>,
-                                        <span class="string">'MTCNA'</span>, <span class="string">'CompTIA
-                                            Security+'</span>];</span>
-                                    <span class="line"><span class="function">initializeTJKT</span>(<span
-                                            class="string">jurusan</span>, <span class="string">coreSkills</span>, <span
-                                            class="string">certifications</span>);</span>
-                                    <span class="line"><span class="comment">// System status: All components loaded
-                                            successfully</span></span>
-                                    <span class="line"><span class="success">✅ TJKT System Ready! Welcome to the Digital
-                                            Frontier! 🚀</span></span>
-                                    <span class="line"><span class="comment">// Ready to build the future of
-                                            networking...</span></span>
-                                </div>
-                            </div>
-                            <div class="laptop-base">
-                                <div class="laptop-stand"></div>
-                            </div>
-                            <div class="laptop-keyboard">
-                                <div class="keyboard-top"></div>
-                                <div class="keyboard-keys"></div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </section>
@@ -6836,8 +6772,7 @@
             createParticles();
 
             // --- BAGIAN 2: LOGIKA AI ---
-            // ISI API KEY GOOGLE GEMINI ANDA DI BAWAH (dapatkan di Google AI Studio: https://aistudio.google.com/app/apikey)
-            var GEMINI_API_KEY = 'AIzaSyBR9Wh3QZKjJWmzu8tkUK6n9rs-uYpkADE';
+            // API Gemini via Vercel (/api/ask-ai) – API key disimpan di Vercel Env (GEMINI_API_KEY)
             const askAiBtn = document.getElementById('ask-ai-btn');
             const aiPromptInput = document.getElementById('ai-prompt');
             const aiResponseDiv = document.getElementById('ai-response');
@@ -6893,28 +6828,17 @@
                 aiResponseDiv.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>AI sedang memproses jawaban...';
 
                 try {
-                    if (!GEMINI_API_KEY) {
-                        throw new Error('ISI GEMINI_API_KEY di kode (baris ~6835). Dapatkan di https://aistudio.google.com/app/apikey');
-                    }
-                    var sysPrompt = 'Anda adalah asisten AI untuk website jurusan TJKT. Jawab ringkas, gunakan daftar (-) bila perlu, **tebalkan** istilah kunci. Akhiri dengan "Terimakasih telah bertanya 😊😍".';
-                    var resp = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
+                    var resp = await fetch('/api/ask-ai', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
                         },
-                        body: JSON.stringify({
-                            system_instruction: {
-                                parts: [{ text: sysPrompt }]
-                            },
-                            contents: [
-                                { role: 'user', parts: [{ text: prompt }] }
-                            ]
-                        })
+                        body: JSON.stringify({ prompt: prompt })
                     });
                     var data = await resp.json();
-                    if (!resp.ok) throw new Error(data.error?.message || data.message || 'HTTP ' + resp.status);
+                    if (!resp.ok) throw new Error(data.error || 'HTTP ' + resp.status);
 
-                    var aiText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+                    var aiText = data.text;
                     if (!aiText) {
                         aiResponseDiv.innerHTML = '<p class="text-yellow-500">AI tidak mengembalikan teks jawaban. Coba ulangi pertanyaan.</p>';
                         return;
@@ -7208,6 +7132,143 @@
                 card.style.transitionDelay = (idx * 90) + 'ms';
                 revealObserver.observe(card);
             });
+        });
+
+        // --- HERO SEQUENCE SCROLL ANIMATION ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const canvas = document.getElementById('hero-sequence');
+            if (!canvas) return; // Guard clause
+
+            const context = canvas.getContext('2d');
+            const heroSection = document.getElementById('beranda');
+            const frameCount = 240;
+
+            // Format number to 3 digits like 001, 002
+            const currentFrame = index => (
+                `sequence/ezgif-frame-${index.toString().padStart(3, '0')}.jpg`
+            );
+
+            // Preload all images
+            const images = [];
+            let loadedImages = 0;
+
+            // Resize canvas full layar - fallback ke window jika section 0
+            const heroContainer = heroSection;
+            const getSectionSize = () => {
+                const w = heroContainer ? heroContainer.offsetWidth : 0;
+                const h = heroContainer ? heroContainer.offsetHeight : 0;
+                return {
+                    w: w > 0 ? w : window.innerWidth,
+                    h: h > 0 ? h : window.innerHeight
+                };
+            };
+            // Animasi smooth dengan requestAnimationFrame
+            const duration = 10; // detik untuk 1 loop penuh
+            let startTime = null;
+            const getFrameFromTime = (t) => {
+                const f = (t / (duration * 1000)) * frameCount;
+                return { idx: Math.floor(f) % frameCount, blend: f % 1 };
+            };
+            const resizeCanvas = () => {
+                const { w, h } = getSectionSize();
+                canvas.width = w;
+                canvas.height = h;
+                const { idx, blend } = startTime !== null ? getFrameFromTime(performance.now() - startTime) : { idx: 0, blend: 0 };
+                if (images.length > 0 && images[idx]) {
+                    const next = images[(idx + 1) % frameCount];
+                    if (blend > 0.01 && next && next.complete) renderImageBlend(images[idx], next, blend);
+                    else renderImage(images[idx]);
+                }
+            };
+            window.addEventListener('resize', resizeCanvas);
+            window.addEventListener('load', function() { resizeCanvas(); if (images[0] && images[0].complete) renderImage(images[0]); });
+
+            // Cover dimensions (sama untuk semua frame, penuh layar di semua device)
+            const getDrawRect = (img) => {
+                if (!img || !img.complete) return null;
+                const canvasRatio = canvas.width / canvas.height;
+                const imgRatio = img.width / img.height;
+                let drawWidth = canvas.width, drawHeight = canvas.height, x = 0, y = 0;
+                if (canvasRatio > imgRatio) {
+                    drawHeight = canvas.width / imgRatio;
+                    y = (canvas.height - drawHeight) / 2;
+                } else {
+                    drawWidth = canvas.height * imgRatio;
+                    x = (canvas.width - drawWidth) / 2;
+                }
+
+                // Mobile: sedikit di-zoom out supaya area animasi yang terlihat lebih banyak
+                if (window.innerWidth <= 768) {
+                    const scale = 0.9; // 90% dari ukuran cover
+                    const scaledWidth = drawWidth * scale;
+                    const scaledHeight = drawHeight * scale;
+                    const dx = (drawWidth - scaledWidth) / 2;
+                    const dy = (drawHeight - scaledHeight) / 2;
+                    drawWidth = scaledWidth;
+                    drawHeight = scaledHeight;
+                    x += dx;
+                    y += dy;
+                }
+
+                return { x, y, drawWidth, drawHeight };
+            };
+
+            const renderImage = (img) => {
+                if (!img || !img.complete) return;
+                const r = getDrawRect(img);
+                if (!r) return;
+                context.clearRect(0, 0, canvas.width, canvas.height);
+                context.drawImage(img, r.x, r.y, r.drawWidth, r.drawHeight);
+            };
+
+            // Crossfade dua frame biar lebih smooth
+            const renderImageBlend = (img1, img2, blend) => {
+                if (!img1 || !img1.complete) return;
+                const r1 = getDrawRect(img1);
+                if (!r1) return;
+                context.clearRect(0, 0, canvas.width, canvas.height);
+                context.globalAlpha = 1 - blend;
+                context.drawImage(img1, r1.x, r1.y, r1.drawWidth, r1.drawHeight);
+                if (img2 && img2.complete && blend > 0) {
+                    const r2 = getDrawRect(img2);
+                    if (r2) {
+                        context.globalAlpha = blend;
+                        context.drawImage(img2, r2.x, r2.y, r2.drawWidth, r2.drawHeight);
+                    }
+                }
+                context.globalAlpha = 1;
+            };
+
+            const preloadImages = () => {
+                for (let i = 1; i <= frameCount; i++) {
+                    const img = new Image();
+                    img.src = currentFrame(i);
+                    img.onload = () => {
+                        loadedImages++;
+                        if (i === 1) {
+                            // Ensure the canvas is ready and draw the first frame immediately
+                            resizeCanvas();
+                            renderImage(img);
+                        }
+                    };
+                    images.push(img);
+                }
+            };
+            preloadImages();
+
+            // Loop smooth dengan requestAnimationFrame + crossfade
+            const animate = () => {
+                if (startTime === null && images[0] && images[0].complete) startTime = performance.now();
+                const t = startTime !== null ? performance.now() - startTime : 0;
+                const { idx, blend } = getFrameFromTime(t);
+                if (images[idx]) {
+                    const next = images[(idx + 1) % frameCount];
+                    if (blend > 0.01 && next && next.complete) renderImageBlend(images[idx], next, blend);
+                    else renderImage(images[idx]);
+                }
+                requestAnimationFrame(animate);
+            };
+            requestAnimationFrame(animate);
         });
     </script>
 </body>
