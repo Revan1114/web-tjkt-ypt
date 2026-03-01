@@ -6835,7 +6835,13 @@
                         },
                         body: JSON.stringify({ prompt: prompt })
                     });
-                    var data = await resp.json();
+                    var rawText = await resp.text();
+                    var data;
+                    try {
+                        data = JSON.parse(rawText);
+                    } catch (e) {
+                        throw new Error('API tidak merespons JSON. Pastikan folder api/ ikut di-deploy ke Vercel dan Root Directory benar.');
+                    }
                     if (!resp.ok) throw new Error(data.error || 'HTTP ' + resp.status);
 
                     var aiText = data.text;
